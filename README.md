@@ -1,48 +1,58 @@
-## Laravel Eclipse
+# Laravel Eclipse 
 
 Laravel Eclipse is a admin package for laravel that allows you to create models, edit the structure of those models, 
 and preform crucfunctionality on those models without writing a line of code
 
-##Installation
 
-After you have installed a new laravel application run the following command in your root directory
+### Installation
 
-'''
-composer require bbarron/laravel-eclipse
-'''
+Laravel Eclipse requires [Php Laravel](https://laravel.org/) v5+ to run.
 
-Once that is done publish all of the packages assets with the following command
+Create a new Laravel Application
 
-'''
-php artisan vendor:publish
-'''
+```sh
+$ composer create-project laravel/laravel LaravelEclipse
+$ cd LaravelEclipse
+$ composer require bbarron/laravel-eclipse
+```
+While this is install go to you .env file and fill in you database information 
 
-Select the package bbarron/laravel-eclipse from the dropdown menu
 
-Then go into you .env file and fill out your database information. 
-It is very important you do this before the next step.
-
-'''
+```sh
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=xxxxxx
 DB_USERNAME=xxxxxx
 DB_PASSWORD=xxxxxx
-'''
+```
+Also In the .env file add a variable called stylesheet and set it to either light, or dark
+This is used to change which stylesheet is being used and allow for easy changing of themes.
+```sh
+stylesheet=light
+```
 
-Lastly, run the following command which will configure your date base and create a default user for you to login as.
+Make sure you have your .env file setup before doing this next step. If not the installation script will throw an error. Once compser is done installing the package run the following two commands 
 
-'''
-php artisan eclipse:install
-'''
+Select Barron\Eclipse\EclipseServiceProvider from the drop down menu.
+```sh
+$ php artisan vendor publish
+ Which provider or tags files would you like to publish?:
+  [0 ] Publish files from all providers and tags listed below
+  [1 ] Provider: Barron\Eclipse\EclipseServiceProvider
+  [2 ] Provider: BeyondCode\DumpServer\DumpServerServiceProvider
+  [3 ] Provider: Fideloper\Proxy\TrustedProxyServiceProvider
+  [4 ] Provider: Illuminate\Foundation\Providers\FoundationServiceProvider
+  [5 ] Provider: Illuminate\Mail\MailServiceProvider
+  [6 ] Provider: Illuminate\Notifications\NotificationServiceProvider
+  [7 ] Provider: Illuminate\Pagination\PaginationServiceProvider
+  [8 ] Provider: Laravel\Tinker\TinkerServiceProvider
 
-If at any point in this insatllation you get a permision denied message you can cd into the root of your project and run 
+```
 
-'''
-sudo chmod -R 777 *
-'''
+Next run
+```sh
+$ php artisan eclipse:install
+```
 
-and that should fix the problem.
-
-Now you can go to localhost/admin/login and login with the credintials displayed on your terminal after running the eclipse install command 
+After this is done installing a username and password will be printed out onto your terminal window. Go to localhost/admin/login to get started 
