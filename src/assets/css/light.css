@@ -9250,7 +9250,7 @@ main .main .new-user-btn {
   height: 30px !important;
 }
 .btn-secondary:hover, .btn-primary:hover{
-  box-shadow: 0px 0px 0px 0px #fff;
+  box-shadow: none;
   transition: 0.3s;
 }
 .btn-secondary, .btn-primary:active{

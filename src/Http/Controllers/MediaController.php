@@ -40,7 +40,7 @@ class MediaController extends Controller
 
     public function delete($fileName)
     {
-    	$path = Storage::delete('public/media_images/'.$fileName);
+    	$path = Storage::delete('public/media_uploads/'.$fileName);
     	$image = Image::where('fileName', $fileName)->delete();
 
     	return redirect('/admin/images');

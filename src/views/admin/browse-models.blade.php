@@ -13,7 +13,7 @@
           <div class="nav-wrapper">
             <a href="#" class="brand-logo">Entries In The {{ $modelName }} model</a>
             <ul class="right">
-              <a href="/admin/models/new-entry/{{ $modelName }}/{{ $tableName }}" class="btn-secondary z-depth-2">New Entry</a>
+              <a href="/admin/models/new-entry/{{ $modelName }}/{{ $tableName }}" class="btn grey z-depth-2">New Entry</a>
             </ul>
           </div>
         </nav>

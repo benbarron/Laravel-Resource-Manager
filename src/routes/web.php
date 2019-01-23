@@ -55,22 +55,13 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
   Route::get('/images', 'MediaController@index')->name('admin.media');
   Route::post('/images/store', 'MediaController@storeImage')->name('images.store');
   Route::post('/images/delete/{fileName}', 'MediaController@delete')->name('images.delete');
+
+
+  Route::get('/documentation', function(){
+
+  });
 });
 
 Route::get('/models/api/{tableName}/{apiKay}', 'ModelController@apiAccess')->name('model.api');
 
 
-
-Route::get('/documentation', function(){
-
-});
-
-Route::prefix('admin')->group(function(){
-  Route::get('/login', 'LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'LoginController@login')->name('admin.authentication');
-});
-
-
-//Route::get('/', function(){
-//  return view('home');
-//});

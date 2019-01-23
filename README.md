@@ -56,3 +56,4 @@ $ php artisan eclipse:install
 ```
 
 After this is done installing a username and password will be printed out onto your terminal window. Go to localhost/admin/login to get started 
+
