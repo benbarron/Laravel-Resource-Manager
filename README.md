@@ -1,7 +1,7 @@
 ## Laravel Eclipse
 
 Laravel Eclipse is a admin package for laravel that allows you to create models, edit the structure of those models, 
-and preform crucfunctionality on those models without writing a line of code.
+and preform crucfunctionality on those models without writing a line of code
 
 ##Installation
 
