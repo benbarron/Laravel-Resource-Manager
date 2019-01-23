@@ -37,7 +37,6 @@ stylesheet=light
 
 Make sure you have your .env file setup before doing this next step. If not the installation script will throw an error. Once compser is done installing the package run the following two commands 
 
-Select Barron\Eclipse\EclipseServiceProvider from the drop down menu.
 ```sh
 $ php artisan vendor publish
 
@@ -47,6 +46,8 @@ $ php artisan vendor publish
 
 
 ```
+
+Select Barron\Eclipse\EclipseServiceProvider from the drop down menu.
 
 Next run
 ```sh
