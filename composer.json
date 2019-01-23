@@ -15,5 +15,12 @@
       "psr-4": {
         "Barron\\Eclipse\\": "src/"
       }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Barron\\Eclipse\\EclipseServiceProvider"
+            ]
+        }
+    }   
 }
