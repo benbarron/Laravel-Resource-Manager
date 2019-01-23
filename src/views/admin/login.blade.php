@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/'.env('stylesheet').'.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/'.env('stylesheet').'.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <title>Login</title>
   </head>
@@ -21,10 +21,10 @@
     </header>
     <!---/top header------>
 
-   
+
     <main class="login-page">
-      @include('admin.partials.preload')   
-      <div class="login-form z-depth-2">
+      @include('admin.partials.preload')
+      <div class="login-form z-depth-3">
         <h3 class="center text-white"><b>Laravel Eclipse</b></h3>
         <br>
         <form class="" action="/admin/login" method="post">
@@ -33,7 +33,7 @@
             <div class="input-field">
               <i class="material-icons prefix">account_circle</i>
               <input id="icon_prefix3" name="email" type="text" id="character_count" class="validate" value="{{ old('email') }}">
-             @php 
+             @php
               if(isset($_GET['error'])){
                 echo "<label for='icon_prefix3'><span style='color:#aa0000;'>Email</span></label>";
               } else {
@@ -46,7 +46,7 @@
             <div class="input-field">
               <i class="material-icons prefix">lock</i>
               <input id="icon_prefix4" type="password" name="password" id="character_count" class="validate" data-length="20">
-               @php 
+               @php
                 if(isset($_GET['error'])){
                   echo "<label for='icon_prefix4'><span style='color:#aa0000;'>Password</span></label>";
                 } else {
@@ -54,8 +54,8 @@
                 }
                 @endphp
             </div>
-          </div>    
-            @php 
+          </div>
+            @php
             if(isset($_GET['error'])){
               echo "<span style='color:#aa0000;''>Invalid Details</span><br>";
             }
@@ -68,7 +68,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('assets/js/materialize.min.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('vendor/eclipse/js/materialize.min.js') }}" charset="utf-8"></script>
 
   </body>
 </html>

@@ -15,12 +15,8 @@ class EclipseServiceProvider extends ServiceProvider
 
   public function boot()
   {
-  //  $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-   // $this->loadViewsFrom(__DIR__.'/views', 'Eclipse');
     $this->publishes([__DIR__.'/views' => resource_path('/views')]);
     $this->publishes([__DIR__.'/assets' => public_path('/vendor/eclipse')]);
-
-
   }
 
   public function register()

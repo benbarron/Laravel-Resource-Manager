@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/'.env('stylesheet').'.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/light.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/pagination.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -13,7 +13,7 @@
   <body>
     @include('admin.partials.header')
     @include('admin.partials.sidebar')
-  
+
     <main>
 
       @yield('content')
