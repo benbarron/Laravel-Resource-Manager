@@ -1,0 +1,28 @@
+.pagination{
+    display:-ms-flexbox !important;
+    display:flex !important;
+    padding-left:0 !important;
+    list-style:none !important;
+    border-radius:.25rem !important;
+}
+.page-link{
+    position:relative !important;
+    display:block !important;
+    padding:.5rem .75rem !important;
+    margin-left:-1px !important;
+    line-height:1.25 !important;
+    color:#007bff !important;
+    background-color:#fff !important;
+    border:1px solid #dee2e6 !important;
+}
+.page-link:hover{
+    z-index:2 !important;
+    color:#0056b3 !important;
+    text-decoration:none !important;
+    background-color:#e9ecef !important;
+    border-color:#dee2e6 !important;
+}
+
+.page-item .active, .disabled{
+    height:50px !important;
+}

@@ -1,0 +1,19 @@
+{
+    "name": "bbarron/laravel-eclipse",
+    "description": "Laravel Admin Package for easier database interactions",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BenBarron",
+            "email": "bjbarron@email.uark.edu"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "Barron\\Eclipse||": "src/"
+      }
+    }
+}
