@@ -12,7 +12,9 @@ Create a new Laravel Application
 
 ```sh
 $ composer create-project laravel/laravel LaravelEclipse
+
 $ cd LaravelEclipse
+
 $ composer require bbarron/laravel-eclipse
 ```
 While this is install go to you .env file and fill in you database information 
@@ -28,6 +30,7 @@ DB_PASSWORD=xxxxxx
 ```
 Also In the .env file add a variable called stylesheet and set it to either light, or dark
 This is used to change which stylesheet is being used and allow for easy changing of themes.
+
 ```sh
 stylesheet=light
 ```
@@ -37,16 +40,11 @@ Make sure you have your .env file setup before doing this next step. If not the 
 Select Barron\Eclipse\EclipseServiceProvider from the drop down menu.
 ```sh
 $ php artisan vendor publish
+
  Which provider or tags files would you like to publish?:
   [0 ] Publish files from all providers and tags listed below
   [1 ] Provider: Barron\Eclipse\EclipseServiceProvider
-  [2 ] Provider: BeyondCode\DumpServer\DumpServerServiceProvider
-  [3 ] Provider: Fideloper\Proxy\TrustedProxyServiceProvider
-  [4 ] Provider: Illuminate\Foundation\Providers\FoundationServiceProvider
-  [5 ] Provider: Illuminate\Mail\MailServiceProvider
-  [6 ] Provider: Illuminate\Notifications\NotificationServiceProvider
-  [7 ] Provider: Illuminate\Pagination\PaginationServiceProvider
-  [8 ] Provider: Laravel\Tinker\TinkerServiceProvider
+
 
 ```
 
