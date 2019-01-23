@@ -70,23 +70,12 @@ class InstallCommand extends Command {
     ];
 
 
-
-    protected $EclipseControllers = [
-        'Http/Controllers/AdminController.php' => '/AdminController.php',
-        'Http/Controllers/LoginController.php' => '/LoginController.php',
-        'Http/Controllers/MediaController.php' => '/MediaController.php',
-        'Http/Controllers/ModelController.php' => '/ModelController.php',
-        'Http/Controllers/UserController.php' => '/UserController.php',
-    ];
-
     public function __construct() {
         parent::__construct();
     }
 
-    public function handle() 
+    public function handle()
     {
-        $this->publishAssets();
-        $this->publishViews();        
         $this->runMigrations();
         $this->makeModels();
         $this->createStorageLink();
@@ -112,7 +101,7 @@ class InstallCommand extends Command {
         $user->password = Hash::make('newuser12345');
         $user->image = "";
         $user->save();
-        
+
         echo "Default User Created.\n\n";
         echo "You can access the login screen at localhost/admin/login \n";
         echo "Use the login info to login in \n";
@@ -121,7 +110,7 @@ class InstallCommand extends Command {
     }
 
     public function runMigrations()
-    {   
+    {
         //create users table
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
@@ -157,7 +146,7 @@ class InstallCommand extends Command {
     }
 
     public function makeModels()
-    {   
+    {
         //make users model
         $params = ['name' => 'User'];
         Artisan::call('make:model', $params);
@@ -185,24 +174,24 @@ class InstallCommand extends Command {
     public function publishMiddleware()
     {
         //publish admin middleware file
-        copy(__DIR__.'/Http/Middleware/IsAdmin.php', 
+        copy(__DIR__.'/Http/Middleware/IsAdmin.php',
         base_path('app/Http/Middleware/IsAdmin.php'));
 
-        echo "Middleware Successfully Published \n";             
+        echo "Middleware Successfully Published \n";
     }
 
     public function publishKernel()
     {
         //publish kernel file
-        copy(__DIR__.'/Http/Kernel.php', 
+        copy(__DIR__.'/Http/Kernel.php',
         base_path('app/Http/Kernel.php'));
 
-        echo "Kernel Successfully Updated \n";        
+        echo "Kernel Successfully Updated \n";
     }
 
     public function publishAssets()
     {
-        
+
         // publish css
         foreach ($this->EclipseCSS as $key => $value) {
             copy(__DIR__.'/'.$key,
@@ -225,7 +214,7 @@ class InstallCommand extends Command {
             base_path('public/vendor/eclipse/img'.$value));
         }
 
-        echo "Images Successfully Published \n";       
+        echo "Images Successfully Published \n";
     }
 
     public function publishViews()
@@ -236,13 +225,13 @@ class InstallCommand extends Command {
            base_path('resources/views'.$value));
        }
 
-       echo "Views Successfully Published \n"; 
+       echo "Views Successfully Published \n";
     }
 
     public function publishRoutes()
     {
         //publish web.php file
-        copy(__DIR__.'/routes/web.php', 
+        copy(__DIR__.'/routes/web.php',
         base_path('routes/web.php'));
 
         echo "Routes Successfully Published \n";
