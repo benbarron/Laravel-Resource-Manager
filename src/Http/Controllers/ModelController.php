@@ -33,7 +33,7 @@ class ModelController extends Controller
     {
       $this->validate($request, [
           'name' => 'required',
-          'image' => 'required | image | max: 1999',
+          
       ]);
 
       $count = [];
@@ -49,9 +49,7 @@ class ModelController extends Controller
         exit();
       } else {
 
-        //store cover image
-        $fileName = time()."_".$request->file('image')->getClientOriginalName();
-        $path = $request->file('image')->storeAs('public/model_images', $fileName);
+       
 
         //calculate number of rows
         for($i = 1; $i < 15; $i++){
@@ -80,7 +78,7 @@ class ModelController extends Controller
         $model = new Models;
         $model->name = $modelName;
         $model->tableName = $tableName;
-        $model->image = $fileName;
+       
 
         if($request->input('api_access') == "on"){
           $model->apiAccess = 1;
@@ -116,8 +114,6 @@ class ModelController extends Controller
       $model = Models::where('name', $this->modelName)->firstOrFail();
 
       $model->delete();
-
-      $path = Storage::delete('public/model_images/'.$model->image);
 
       Schema::dropIfExists($this->tableName);
 
@@ -169,7 +165,7 @@ class ModelController extends Controller
           $data[$field->Field] = $request->input($field->Field);
         }
         if(empty($data[$field->Field]) && $field->Field != "id") {
-          return back()->withInput(Input::all());
+          return back()->withInput(Input::all())->with('red', 'All fields are required');
         }
       }
 
@@ -202,16 +198,18 @@ class ModelController extends Controller
 
       $data = [];
 
+
+
       foreach ($fields as $field){
         if ($field->Field == "timeStamp"){
           $data[$field->Field] = time();
         } else if (strtolower($field->Field) == "author") {
-          $data[$field->Field] = Auth::user()->name;
+          $data[$field->Field] = Auth::user()->name;          
         } else {
-          $data[$field->Field] = $request->input($field->Field);
+          $data[$field->Field] = $request->input('entry-id');
         }
         if(empty($data[$field->Field]) && $field->Field != "id") {
-          return back();
+         return back()->withInputs(Input::all())->with('red', 'There was an error updating entry');
         }
       }
 
@@ -265,11 +263,17 @@ class ModelController extends Controller
       $this->name = $request->input('name-0');
       $this->default = $request->input('default-0');
 
-      Schema::table($tableName, function(Blueprint $table){
-        $table->{$this->dataType}($this->name)->default($this->default);
-      });
+      try {
+        Schema::table($tableName, function(Blueprint $table){
+          $table->{$this->dataType}($this->name)->default($this->default);
+        });
+      } catch (\Illuminate\Database\QueryException $e) {
+        return redirect('/admin/models/edit/'.$modelName.'/'.$tableName)->with('red', 'There was an error adding '.$this->name);
+      } catch (PDOException $e) {
+        return redirect('/admin/models/edit/'.$modelName.'/'.$tableName)->with('red', 'There was an error adding '.$this->name);
+      }
 
-     return redirect('/admin/models/edit/'.$modelName.'/'.$tableName);
+    return redirect('/admin/models/edit/'.$modelName.'/'.$tableName)->with('green', $this->name.' was added');
     }
 
     public function dropColumn(Request $request)
@@ -288,7 +292,7 @@ class ModelController extends Controller
         $table->dropColumn($this->columnName);
       });
 
-      return back()->with('green', $this->columnName.' was successfully dropped');
+      return back()->with('green', $this->columnName.' was dropped');
     }
 
     public function apiAccess($tableName, $apiKey)

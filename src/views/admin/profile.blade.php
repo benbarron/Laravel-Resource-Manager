@@ -1,115 +1,116 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Laravel Eclipse')
+@section('page-title', 'User Profile')
 
+@section('page-header', 'User Profile')
+
+@section('sidebar')
+<div class="logo">
+    <div class="logo__txt"><i class="fab fa-laravel"></i></div>
+  </div>
+<div class="l-sidebar__content">
+<nav class="c-menu js-menu">
+    <ul class="u-list">
+      <a href="/admin/home">
+        <li class="c-menu__item" data-toggle="tooltip" title="Flights">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-home"></i>
+            <div class="c-menu-item__title"><span>Home</span></div>
+          </div>
+        </li>
+      
+      </a>
+      <a href="/admin/profile">
+        <li class="c-menu__item  is-active" data-toggle="tooltip" title="Statistics">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-user"></i>
+            <div class="c-menu-item__title"><span>Profile</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/users/all?view=all">
+        <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Gifts">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-users"></i>
+            <div class="c-menu-item__title"><span>Users</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/models">
+        <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-database"></i>
+            <div class="c-menu-item__title"><span>Models</span></div>
+          </div>
+        </li>
+      </a>
+      <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+        <div class="c-menu__item__inner">
+          <i class="fa fa-cogs"></i>
+          <div class="c-menu-item__title"><span>Settings</span></div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+@endsection
 
 @section('content')
-  <!---main content----->
-  <div class="main">
-    <div class="container">
-      <div class="row mt-50">
-        <h2 class="center"><b>Your Profile</b></h2>
-        <br>
-        <div class="col s12 m5">
-          <div class="card z-depth-2" style="height: 480px !important;">
-            <div class="card-image" style="height: 480px !important;">
-              @if(!empty($user->image))
-                <img src="{{ asset('storage/profile_images/'.$user->image) }}" style="height:100%;" alt="">
-              @else
-                <img src="{{ asset('vendor/eclipse/img/profile.jpeg') }}" style="height:100%;" alt="">
-              @endif
-              <span class="card-title"><b>{{ $user->name }}</b></span>
-            </div>
-          </div>
-        </div>
-        <div class="profile-container col s12 m5 offset-m1">
-          <div class="card z-depth-2" >
-            <div class="card-content">
-              <form action="/admin/profile/update" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                  <ul class="collapsible">
-                    <li>
-                      <div class="collapsible-header"><i class="material-icons">email</i>{{ $user->email }}</div>
-                      <div class="collapsible-body">
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="icon_prefix1" type="email" name="email" class="validate" value="{{ $user->email }}">
-                            <label for="icon_prefix1">Email Adress</label>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="row">
-                  <ul class="collapsible">
-                    <li>
-                      <div class="collapsible-header"><i class="material-icons">account_circle</i>{{ $user->name }}</div>
-                      <div class="collapsible-body">
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="icon_prefix1" type="text" name="name" class="validate" value="{{ $user->name }}">
-                            <label for="icon_prefix1">Name</label>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="row">
-                  <ul class="collapsible">
-                    <li>
-                      <div class="collapsible-header"><i class="material-icons">photo</i>Profile Picture</div>
-                      <div class="collapsible-body">
-                        <div class="row">
-                          <div class="input-field">
-                            @if(!empty($user->image))
-                                <input type="file" class="" name="image" value="{{ asset('storage/profile_images/'.$user->image) }}">
-                            @else
-                              <input type="file" name="image" value="">
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="row">
-                  <ul class="collapsible">
-                    <li>
-                      <div class="collapsible-header"><i class="material-icons">lock</i>Change Password</div>
-                      <div class="collapsible-body">
-                        <div class="row">
-                          <div class="input-field">
-                            <input id="icon_prefix" name="oldPassword" type="password" class="validate">
-                            <label for="icon_prefix">Old Password</label>
-                          </div>
-                          <div class="input-field">
-                            <input id="icon_prefix2" name="password1" type="password" class="validate">
-                            <label for="icon_prefix2">New Password</label>
-                          </div>
-                          <div class="input-field">
-                            <input id="icon_prefix3" name="password2" type="password" class="validate">
-                            <label for="icon_prefix3">Verify New Password</label>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-action">
-                <button type="submit" class="btn red z-depth-2">Update Profile</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+<div class="row">
+    @include('admin.partials.alerts')
+</div>
+<div class="row justify-content-start">
+  
+    <div class="col-sm-12 col-md-4 col-lg-4 text-center mt-100">
+      @if(!empty(Auth::user()->image))
+      <img src="{{ asset('storage/profile_images/'.$user->image) }}" >
+      @else 
+        <img src="{{ asset('vendor/eclipse/img/user.png') }}" >
+      @endif
     </div>
+    <div class="col-sm-12 col-md-6">
+        <form action="/admin/profile/update" method="post" enctype="multipart/form-data">
+          @csrf
+       <div class="input">
+         
+        <label for="">Name</label>
+       <input type="text" class="form-control rounded-0" name="name" placeholder="name" value="{{ $user->name }}">
+       </div>
+       <br>
+       <div class="input">
+          <label for="">Email</label>
+          <input type="text" class="form-control rounded-0" name="email" placeholder="email" value="{{ $user->email  }}">
+        </div>
+        <br>
+        <div class="input">
+          <label for="">Profile Picture</label>
+          <br>
+          @if(!empty($user->image))
+            <input type="file" class="" name="image" value="{{ asset('storage/profile_images/'.$user->image) }}">
+          @else
+            <input type="file" name="image" value="">
+          @endif
+        </div>
+        <br>
+        <div class="input">
+            <label for="">Old Password</label>
+            <input type="password" class="form-control rounded-0" name="oldPassword" placeholder="Old Password" >
+        </div>
+            <br>
+          <div class="input">
+            <label for="">New Password</label>
+            <input type="password" class="form-control rounded-0" name="password1" placeholder="New Password">
+          </div>
+          <br>
+          <div class="input">
+              <label for="">Verify New Password</label>
+              <input type="password" class="form-control rounded-0" name="password2" placeholder="Verify New Password">
+          </div>
+          <br><br>
+          <div class="input">
+            <button type="submit" class="btn btn-primary z-depth-2 rounded-0">Update Profile</button>
+          </div>
+    </div>
+
   </div>
-  <!---/main content----->
 @endsection

@@ -1,28 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/light.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/pagination.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>@yield('title')</title>
-  </head>
-  <body>
-    @include('admin.partials.header')
-    @include('admin.partials.sidebar')
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  
 
-    <main>
+  <title>@yield('page-title')</title>
+</head>
+<body class="sidebar-is-reduced">
+  @include('admin.partials.header')
+  <div class="l-sidebar">
+      @yield('sidebar')
+  </div>
 
-      @yield('content')
-    </main>
+  <main class="l-main">
+    <div class="content-wrapper content-wrapper--with-bg">
+      <h1 class="page-title">@yield('page-header')</h1>
+      <div class="page-content">
+        <div class="row">
+          <div class="col-md-12">
+          @yield('content')
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-    @include('admin.partials.footer')
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('vendor/eclipse/js/materialize.min.js') }}" charset="utf-8"></script>
-    <script src="{{ asset('vendor/eclipse/js/app.js') }}" charset="utf-8"></script>
-  </body>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+  <script src="{{ asset('/vendor/eclipse/js/main.js') }}"></script>
+
+  @yield('js')
 </html>

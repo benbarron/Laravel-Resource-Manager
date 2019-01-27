@@ -1,71 +1,127 @@
 @extends('admin.layouts.app')
-@section('title', 'Laravel Eclipse')
+
+@section('page-title', 'Model Entry')
+
+@section('page-header', 'Model Entry')
+
+@section('sidebar')
+<div class="logo">
+    <div class="logo__txt"><i class="fab fa-laravel"></i></div>
+  </div>
+<div class="l-sidebar__content">
+<nav class="c-menu js-menu">
+    <ul class="u-list">
+      <a href="/admin/home">
+        <li class="c-menu__item" data-toggle="tooltip" title="Flights">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-home"></i>
+            <div class="c-menu-item__title"><span>Home</span></div>
+          </div>
+        </li>
+      
+      </a>
+      <a href="/admin/profile">
+        <li class="c-menu__item  " data-toggle="tooltip" title="Statistics">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-user"></i>
+            <div class="c-menu-item__title"><span>Profile</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/users/all?view=all">
+        <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Gifts">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-users"></i>
+            <div class="c-menu-item__title"><span>Users</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/models">
+        <li class="c-menu__item is-active" data-toggle="tooltip" title="Settings">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-database"></i>
+            <div class="c-menu-item__title"><span>Models</span></div>
+          </div>
+        </li>
+      </a>
+      <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+        <div class="c-menu__item__inner">
+          <i class="fa fa-cogs"></i>
+          <div class="c-menu-item__title"><span>Settings</span></div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+@endsection
+
 @section('content')
-  <!---main content----->
-  <div class="main">
-    <div class="container">
-      <div class="row section-heading">
-        <h2 class="text-center"><b>Edit Entry In The {{ $modelName }} Model</b></h2>
-      </div>
-      <div class="row">
-      	<form action="/admin/models/update/entry/{{ $modelName }}/{{ $tableName }}/{{ $id }}" method="post">
-	      	@csrf
-	      	<input type="hidden" value="{{ $id }}" name="entry-id">
-		      <div class="row">
-		      	<?php $i = 0 ?>
-		      	@foreach($fields as $field)
-							@if($field->Type == "text")
-							@elseif($field->Type == "boolean")
-								<select name="{{ $field->Field }}" value="{{ $content->{$field->Field} }}" id="" required="">
-									<option value="1">True</option>
-									<option value="0">False</option>
-								</select>
-							@else
-								@if($field->Field != "timeStamp" && strtolower($field->Field) != "author")
-                  @if($field->Field == "id")
-                  <input type="hidden" name="{{$field->Field }}" value="{{ $content->{$field->Field} }}" required="">
-                  @else 
-  									<div class="">
-  			              <div class="input-field">
-  			                <i class="material-icons prefix">fiber_manual_record</i>
-  			                <input id="icon_prefix{{ $i }}" type="text" name="{{ $field->Field }}" class="validate" value="{{ $content->{$field->Field} }}" required="">
-  			                <label for="icon_prefix{{ $i }}">{{ $field->Field }}</label>
-  			              </div>
-  			            </div>
-                  @endif
-		            @endif
-							@endif
-							<?php $i++ ?>
-		      	@endforeach
+  <div class="row">
+      @include('admin.partials.alerts')
+  </div>
+  <div class="row justify-content-start">
+    <div class="col-sm-12">
+        <form action="/admin/models/update/entry/{{ $modelName }}/{{ $tableName }}/{{ $id }}" method="post">
+          @csrf
+          <input type="hidden" value="{{ $id }}" name="entry-id">
+          <div class="">
+            <?php $i = 0 ?>
             @foreach($fields as $field)
               @if($field->Type == "text")
-                <div class="">
-                  <div class="input-field" >
-                    <textarea name="{{ $field->Field }}"  class="validate" required="">{{ $content->{$field->Field} }}</textarea>
-                  </div>
+              @elseif($field->Type == "boolean")
+              <select name="{{ $field->Field }}" id="" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
+                <option value="1">True</option>
+                <option value="0">False</option>
+              </select>
+              @else
+                @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
+           
+                <div class="form-group">
+                <label for="">{{ $field->Field }}</label>
+                <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
                 </div>
+                @endif
               @endif
+              <?php $i++ ?>
             @endforeach
-		      </div>
-		      <div class="row">
-		      	<button type="submit" class="btn-primary z-depth-2">Enter</button>
-		      </div>
-	      </form>
-      </div>
+            @foreach($fields as $field)
+            @if($field->Type == "text")
+            <div class="">
+              <div class="input-field" >
+                <textarea name="{{ $field->Field }}" id="" cols="30" rows="30" class="validate" placeholder="{{ $field->Field }}">
+                  {{ old($field->Field, $content->{$field->Field}) }}
+                </textarea>
+              </div>
+            </div>
+            @endif
+            @endforeach
+          </div>
+          <div class="">
+            <button type="submit" class="btn btn-primary rounded-0 z-depth-2 mt-50" style="width:200px;">Enter</button>
+          </div>
+        </form>
     </div>
   </div>
-    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+@endsection
+
+@section('js')
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
     <script>
           tinymce.init({
               selector:'textarea',
               branding: false,
               theme: 'modern',
               content_css: '{{asset('css/app.css')}}',
-              height: 500,
+              height: 300,
               plugins: ["table lists pagebreak link autosave image imagetools code advlist textcolor colorpicker fullscreen"],
               advlist_bullet_styles: 'square circle',
               menubar: "file format edit table insert view",
               toolbar: " code | insertfile | table | numlist bullist | pagebreak | link | undo | bold | italic | image | forecolor | backcolor | fullscreen",
+              image_advtab: true,
+              images_upload_url: 'postAcceptor.php',
+              images_upload_url: '/storage/app/public',
+              //images_upload_base_path: '/storage/app/public/',
+              images_upload_credentials: true,
               formats: {
                 alignleft: {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'left'},
                 aligncenter: {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'center'},
@@ -79,6 +135,28 @@
                 hilitecolor: {inline : 'span', classes : 'hilitecolor', styles : {backgroundColor : '%value'}},
                 custom_format: {block : 'h1', attributes : {title : 'Header'}, styles : {color : 'red'}}
               },
+              images_upload_handler: function (blobInfo, success, failure) {
+                  var xhr, formData;
+                  xhr = new XMLHttpRequest();
+                  xhr.withCredentials = false;
+                  xhr.open('POST', 'postAcceptor.php');
+                  xhr.onload = function() {
+                    var json;
+                    if (xhr.status != 200) {
+                      failure('HTTP Error: ' + xhr.status);
+                      return;
+                    }
+                    json = JSON.parse(xhr.responseText);
+                    if (!json || typeof json.location != 'string') {
+                      failure('Invalid JSON: ' + xhr.responseText);
+                      return;
+                    }
+                    success(json.location);
+                  };
+                  formData = new FormData();
+                  formData.append('file', blobInfo.blob(), fileName(blobInfo));
+                  xhr.send(formData);
+              },
               mobile: {
                   theme: 'mobile',
                   plugins: [ 'autosave', 'lists', 'autolink' ],
@@ -86,4 +164,5 @@
               }
           });
       </script>
+
 @endsection

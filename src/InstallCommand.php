@@ -70,7 +70,7 @@ class InstallCommand extends Command {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('image');
             $table->boolean('IsAdmin')->default('0');
             $table->string('password');
@@ -83,7 +83,6 @@ class InstallCommand extends Command {
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('image');
             $table->string('tableName');
             $table->boolean('apiAccess')->default('0');
         });

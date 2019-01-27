@@ -1,8 +1,94 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Laravel Eclipse')
+@section('page-title', 'Home')
 
+@section('page-header', 'Documentation')
+
+@section('sidebar')
+<div class="logo">
+    <div class="logo__txt"><i class="fab fa-laravel"></i></div>
+  </div>
+<div class="l-sidebar__content">
+<nav class="c-menu js-menu">
+    <ul class="u-list">
+      <a href="/admin/home">
+        <li class="c-menu__item is-active" data-toggle="tooltip" title="Flights">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-home"></i>
+            <div class="c-menu-item__title"><span>Home</span></div>
+          </div>
+        </li>
+      
+      </a>
+      <a href="/admin/profile">
+        <li class="c-menu__item  " data-toggle="tooltip" title="Statistics">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-user"></i>
+            <div class="c-menu-item__title"><span>Profile</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/users/all?view=all">
+        <li class="c-menu__item" data-toggle="tooltip" title="Gifts">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-users"></i>
+            <div class="c-menu-item__title"><span>Users</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/models">
+        <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-database"></i>
+            <div class="c-menu-item__title"><span>Models</span></div>
+          </div>
+        </li>
+      </a>
+      <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+        <div class="c-menu__item__inner">
+          <i class="fa fa-cogs"></i>
+          <div class="c-menu-item__title"><span>Settings</span></div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+@endsection
 
 @section('content')
+<div class="row">
+    @include('admin.partials.alerts')
+</div>
+<div class="row justify-content-start">
+  
+    <h4>Features</h4>
+<br>
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+</p>
+<br>
+<h4>Usage</h4>
+<br>
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, inventore! Ea, consectetur delectus cumque magni illo perspiciatis voluptatibus provident iusto.
+</p>
 
+  </div>
 @endsection
+

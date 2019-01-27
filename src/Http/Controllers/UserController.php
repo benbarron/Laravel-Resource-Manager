@@ -51,7 +51,7 @@ class UserController extends Controller
         }
       }
 
-      return redirect('/admin/profile?success=updated');
+      return redirect('/admin/users/all')->with('green', 'User Created');
     }
 
     public function updateUser(Request $request)
@@ -95,22 +95,22 @@ class UserController extends Controller
         $user->image = $fileName;
       }
 
-      //$2y$10$9vWPHKI6DoRT/JQOvzIZ0eXG.jKlNMpYI/X./SojZ8/OkL363tLqG
+      $user->save();
 
       if(!empty($oldPassword) && !empty($password1) && !empty($password1)) {
         if($password1 == $password2){
           if (Hash::check($oldPassword, Auth::user()->password)) {
             $user->password = Hash::make($password1);
           } else{
-            return back();
+            return back()->with('yellow', 'The password you entered did not match our records');
           }
         } else {
-          return back();
+          return back()->with('red', 'Your password and password verification did not match');
         }
       }
 
       $user->save();
 
-      return redirect('/admin/profile');
+      return redirect('/admin/profile')->with('green', 'Profile Successfull Updated');
     }
 }

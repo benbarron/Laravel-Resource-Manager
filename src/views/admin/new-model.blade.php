@@ -1,80 +1,113 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Laravel Eclipse')
+@section('page-title', 'New Model')
 
+@section('page-header', 'New Model')
+
+@section('sidebar')
+<div class="logo">
+    <div class="logo__txt"><i class="fab fa-laravel"></i></div>
+  </div>
+<div class="l-sidebar__content">
+<nav class="c-menu js-menu">
+    <ul class="u-list">
+      <a href="/admin/home">
+        <li class="c-menu__item" data-toggle="tooltip" title="Flights">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-home"></i>
+            <div class="c-menu-item__title"><span>Home</span></div>
+          </div>
+        </li>
+      
+      </a>
+      <a href="/admin/profile">
+        <li class="c-menu__item  " data-toggle="tooltip" title="Statistics">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-user"></i>
+            <div class="c-menu-item__title"><span>Profile</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/users/all?view=all">
+        <li class="c-menu__item" data-toggle="tooltip" title="Gifts">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-users"></i>
+            <div class="c-menu-item__title"><span>Users</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/models">
+        <li class="c-menu__item is-active" data-toggle="tooltip" title="Settings">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-database"></i>
+            <div class="c-menu-item__title"><span>Models</span></div>
+          </div>
+        </li>
+      </a>
+      <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+        <div class="c-menu__item__inner">
+          <i class="fa fa-cogs"></i>
+          <div class="c-menu-item__title"><span>Settings</span></div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+@endsection
 
 @section('content')
-<!---main content----->
-<div class="main">
-  <div class="container">
-    <div class="row">
-      <div class="col s10 offset-s1 m10">
-        <div class="row section-heading">
-          <h2><b>New Model</b></h2>
+<div class="row">
+    @include('admin.partials.alerts')
+</div>
+<div class="row justify-content-start">
+  <div class="col-sm-12">
+    <form action="/admin/create/model" method="post" enctype="multipart/form-data">
+      @csrf
+        <div class="form-group">
+          <label for="">Model name</label>
+          <input type="text" name="name" id="" placeholder="Model Name" class="form-control rounded-0">
         </div>
-        <form action="/admin/create/model" method="post" enctype="multipart/form-data">
-          @csrf
-          <div class="row">
-            <br>
-            <div class="input-field">
-              <i class="fa fa-database prefix"></i>
-              <input id="icon_prefix3" name="name" type="text" id="character_count" class="validate" value={{ old('name') }}>
-              <label for="icon_prefix3">Model Name</label>
-              @php
-                if(isset($_GET['error']) && $_GET['error'] == "taken"){
-                  echo "<span style='color:#aa0000;'>There is already a model with that name</span>";
-                }
-              @endphp
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field">
-              <div class="switch">
-                <label>
-                  No Api Access
-                  <input type="checkbox" name="api_access" id="profile-switch-input">
-                  <span class="lever grey" id="profile-switch-lever"></span>
-                  Api Access
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <h6><b>Model Cover Image</b></h6>
-            <div class="input-field">
-              <input id="icon_prefix3" name="image" type="file" id="character_count" class="validate">
-            </div>
-          </div>
-          <div class="row">
-            <table class="z-depth-2">
+        <br>
+        @php
+        if(isset($_GET['error']) && $_GET['error'] == "taken"){
+          echo "<span style='color:#aa0000;'>There is already a model with that name</span><br>";
+        }
+        @endphp
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" name="api_access" id="customSwitch1">
+            <label class="custom-control-label" for="customSwitch1">Api Access</label>
+          </div>   
+          <br><br>
+          <table class="table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Type</th>
-                  <th>Name</th>
-                  <th>Default</th>
-                  <th>Extra</th>
+                  <th scope="col">#</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Default</th>
                 </tr>
               </thead>
-              <tbody id="edit-model-table">
+              <tbody>
                 <tr>
-                  <td>!</td>
+                  <th scope="row">!</th>
                   <td>Integer</td>
-                  <td>id</td>
-                  <td></td>
-                  <td>AutoIncrement</td>
+                  <td>Id</td>
+                  <td>autoincrements</td>
                 </tr>
+                </tbody>
+                <tbody>
                 <tr>
-                  <td>!</td>
+                  <th scope="row">!</th>
                   <td>Integer</td>
-                  <td>timeStamp</td>
-                  <td>Current Timestamp</td>
-                  <td></td>
+                  <td>TimeStamp</td>
+                  <td>Current TimeStamp</td>
                 </tr>
+              </tbody>
+              <tbody>
                 <tr>
-                  <td>1 <input type="hidden" name="count-1" value="1"></td>
+                  <th>1 <input type="hidden" name="count-1" value="1"></th>
                   <td>
-                    <select name="data-type-0" id="">
+                    <select name="data-type-0" class="form-control rounded-0" id="">
                       <option value="string">String</option>
                       <option value="integer">Integer</option>
                       <option value="text">Text</option>
@@ -82,16 +115,10 @@
                       <option value="boolean">Boolean</option>
                     </select>
                   </td>
-                  <td>
-                    <input type="text" name="name-0" value="">
-                  </td>
-                  <td>
-                    <input type="text" name="default-0" value="">
-                  </td>
-                  <td>
-                    <input type="text" name="extra-0" value="">
-                  </td>
+                  <td><input type="text" name="name-0" class="form-control rounded-0"></td>
+                  <td><input type="text" name="default-0" class="form-control rounded-0"></td>
                 </tr>
+                
               </tbody>
               <tbody id="insert1"></tbody>
               <tbody id="insert2"></tbody>
@@ -105,24 +132,17 @@
               <tbody id="insert10"></tbody>
               <tbody id="insert11"></tbody>
               <tbody id="insert12"></tbody>
-            </table>
-            <div class="row mt-50">
-              <br>
-              <div class="col s12 m3">
-                <button type="submit" class="btn green z-depth-2 mr-20 mb-20">Create Model</button>
-              </div>
-              <div class="col s12 m3">
-                <a id="add-column-to-model" class="btn grey darken-1 z-depth-2 mr-20 mb-20">Add Column</a>
-              </div>
-              <div class="col s12 m3">
-                <a id="remove-column-to-model" class="btn red darken-1 z-depth-2 mr-20 mb-20">Remove Column</a>
-              </div>
+              <tbody id="insert13"></tbody>
+              <tbody id="insert14"></tbody>
+            </table> 
+            <button type="submit" class="btn btn-primary rounded-0 z-depth-1 ">Create Model</button>
+            <a class="btn btn-secondary rounded-0 z-depth-1 ml-20" id="add-column-to-table" style="color:white;">Add Column</a>
+            <a class="btn btn-danger rounded-0 z-depth-1 ml-20" id="remove-column-to-table" style="color:white;">Remove Column</a>
 
-          </div>
-        </div>
-      </form>
-    </div>
   </div>
 </div>
 
+
 @endsection
+
+

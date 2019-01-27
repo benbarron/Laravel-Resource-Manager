@@ -1,80 +1,100 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Laravel Eclipse')
+@section('page-title', 'User Profile')
 
+@section('page-header', 'User Profile')
+
+@section('sidebar')
+<div class="logo">
+    <div class="logo__txt"><i class="fab fa-laravel"></i></div>
+  </div>
+<div class="l-sidebar__content">
+<nav class="c-menu js-menu">
+    <ul class="u-list">
+      <a href="/admin/home">
+        <li class="c-menu__item" data-toggle="tooltip" title="Flights">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-home"></i>
+            <div class="c-menu-item__title"><span>Home</span></div>
+          </div>
+        </li>
+      
+      </a>
+      <a href="/admin/profile">
+        <li class="c-menu__item  " data-toggle="tooltip" title="Statistics">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-user"></i>
+            <div class="c-menu-item__title"><span>Profile</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/users/all?view=all">
+        <li class="c-menu__item has-submenu is-active" data-toggle="tooltip" title="Gifts">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-users"></i>
+            <div class="c-menu-item__title"><span>Users</span></div>
+          </div>
+        </li>
+      </a>
+      <a href="/admin/models">
+        <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+          <div class="c-menu__item__inner">
+            <i class="fa fa-database"></i>
+            <div class="c-menu-item__title"><span>Models</span></div>
+          </div>
+        </li>
+      </a>
+      <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+        <div class="c-menu__item__inner">
+          <i class="fa fa-cogs"></i>
+          <div class="c-menu-item__title"><span>Settings</span></div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+@endsection
 
 @section('content')
-  <!---main content----->
-  <div class="main">
-    <div class="container">
-      <div class="row">
-        <div class="col s10 offset-s1 m10">
-          <div class="row section-heading">
-            <h2><b>New User</b></h2>
-          </div>
-          <div class="row">
-            <form method="POST" action="/admin/create/user">
-              @csrf
-              <div class="row">
-                <div class="input-field">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="icon_prefix" type="text" name="name" class="validate" value="{{ old('name') }}">
-                  <label for="icon_prefix">Full Name</label>
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field">
-                  <i class="material-icons prefix">email</i>
-                    <input id="icon_prefix1" type="email" name="email" class="validate" value="{{ old('email') }}">
-                  <label for="icon_prefix1">Email Adress</label>
-                </div>
-                  @php
-                    if(isset($_GET['error']) && $_GET['error'] == "email_taken"){
-                      echo "<span style='color:#aa0000;'>The email address you entered is already in use</span>";
-                    }
-                  @endphp
-              </div>
-              <div class="row">
-                <div class="input-field">
-                  <i class="material-icons prefix">lock</i>
-                  <input id="icon_prefix2" type="password" name="password1" class="validate" >
-                  <label for="icon_prefix2">Password</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field">
-                  <i class="material-icons prefix">lock</i>
-                  <input id="icon_prefix3" type="password" name="password2" id="character_count" class="validate" data-length="20">
-                  <label for="icon_prefix3">Verify Password</label>
-                </div>
-                  @php
-                    if(isset($_GET['error']) && $_GET['error'] == "password_match"){
-                      echo "<span style='color:#aa0000;'>The passwords you entered do not match</span>";
-                    }
-                  @endphp
-              </div>
-              <div class="row">
-                <div class="input-field">
-                  <div class="switch">
-                  <label>
-                    User
-                    <input type="checkbox" name="user_type" id="profile-switch-input">
-                    <span class="lever grey" id="profile-switch-lever"></span>
-                    Admin
-                  </label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <button type="submit" class="btn-secondary z-depth-2">Add User</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+      @include('admin.partials.alerts')
+  </div>
+  <div class="row justify-content-start">
+    <div class="col-sm-12">
+        <form method="POST" action="/admin/create/user">
+          @csrf
+          <div class="form-group">
+            <label for="">Full Name</label>
+            <input type="text" name="name" id="" placeholder="Fullname" class="form-control rounded-0" value="{{ old('name') }}">
+          </div> 
+          <div class="form-group">
+            <label for="">Email</label>
+            <input type="text" name="email" id="" placeholder="Email" class="form-control rounded-0" value="{{ old('email') }}">
+          </div> 
+          @php
+            if(isset($_GET['error']) && $_GET['error'] == "email_taken"){
+              echo "<span style='color:#aa0000;'>The email address you entered is already in use</span><br>";
+            }
+          @endphp
+          <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" name="password1" id="" placeholder="Password" class="form-control rounded-0">
+          </div> 
+          <div class="form-group">
+            <label for="">Verify Password</label>
+            <input type="password" name="password2" id="" placeholder="Verify Password" class="form-control rounded-0">
+          </div> 
+          @php
+            if(isset($_GET['error']) && $_GET['error'] == "password_match"){
+              echo "<span style='color:#aa0000;'>The passwords you entered do not match</span><br>";
+            }
+          @endphp
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" name="user_type" id="customSwitch1">
+            <label class="custom-control-label" for="customSwitch1">Administrator</label>
+          </div>    
+          <button type="submit" class="btn btn-primary rounded-0 z-depth-1 mt-30">Add User</button>
+        </form>
     </div>
   </div>
-  <!---/main content----->
-
 @endsection
