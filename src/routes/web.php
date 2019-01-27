@@ -5,21 +5,35 @@
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Routes for the admim package, register your own routes for the
-| main pages of your below them.
+| -login routes
+|    
+| -admin routes
+|    - logout
+|    - models
+|    - profile
+|    - users
+|    - model entries
+|    - model api access 
+|    - media / images
+|    - documentation
+|    
+| -api access routes
+|    
+| -register your own routes
 |
 |
 */
 
-Route::get('/', function() {
-  return view('home');
-});
+//login routes
+Route::get('/admin/login', 'LoginController@showLoginForm')->name('login');
+Route::post('/admin/login', 'LoginController@login')->name('admin.authenticate');
 
+//admin routes
 Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
   Route::get('/logout/{id}', 'LoginController@logout')->name('logout');
 
-  Route::get('home', 'AdminController@home')->name('home');
+  Route::get('/home', 'AdminController@home')->name('home');
 
   Route::get('/models', 'AdminController@models')->name('admin.models');
 
@@ -52,16 +66,44 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
   Route::post('/models/enable/api-access/{modleName}/{tableName}', 'ModelController@enableApiAccess')->name('model.api.enable');
   Route::post('/models/disable/api-access/{modleName}/{tableName}', 'ModelController@disableApiAccess')->name('model.api.disable');
 
-  Route::get('/images', 'MediaController@index')->name('admin.media');
+  Route::get('/images/{dir}/{prev_dir}', 'MediaController@index')->name('admin.media');
   Route::post('/images/store', 'MediaController@storeImage')->name('images.store');
-  Route::post('/images/delete/{fileName}', 'MediaController@delete')->name('images.delete');
+  Route::post('/images/delete/{fileName}', 'MediaController@deleteImage')->name('images.delete');
+
+  Route::post('/media/add/folder', 'MediaController@addFolder')->name('admin.add.folder');
+  Route::post('/media/delete/folder/{id}', 'MediaController@deleteFolder');
 
 
   Route::get('/documentation', function(){
 
   });
 });
+/*
+|--------------------------------------------------------------------------
+| Api Key and access route
+|--------------------------------------------------------------------------
+|
+| ij1CPywJlRlKgQcqXkDIUsoyg0jejouE
+|
+|
+*/
+
+
 
 Route::get('/models/api/{tableName}/{apiKay}', 'ModelController@apiAccess')->name('model.api');
 
 
+/*
+|--------------------------------------------------------------------------
+| Register your routes here
+|--------------------------------------------------------------------------
+|
+| 
+|
+|
+*/
+
+//
+Route::get('/', function() {
+  return redirect('/admin/login');
+});
