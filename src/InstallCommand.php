@@ -80,7 +80,6 @@ class InstallCommand extends Command {
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('image');
             $table->string('tableName');
             $table->boolean('apiAccess')->default('0');
         });
