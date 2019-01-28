@@ -6,10 +6,10 @@
 
 @section('sidebar')
 <div class="logo">
-    <div class="logo__txt"><i class="fab fa-laravel"></i></div>
-  </div>
+  <div class="logo__txt"><i class="fab fa-laravel"></i></div>
+</div>
 <div class="l-sidebar__content">
-<nav class="c-menu js-menu">
+  <nav class="c-menu js-menu">
     <ul class="u-list">
       <a href="/admin/home">
         <li class="c-menu__item" data-toggle="tooltip" title="Flights">
@@ -18,7 +18,6 @@
             <div class="c-menu-item__title"><span>Home</span></div>
           </div>
         </li>
-      
       </a>
       <a href="/admin/profile">
         <li class="c-menu__item  is-active" data-toggle="tooltip" title="Statistics">
@@ -57,60 +56,57 @@
 
 @section('content')
 <div class="row">
-    @include('admin.partials.alerts')
+  @include('admin.partials.alerts')
 </div>
 <div class="row justify-content-start">
-  
-    <div class="col-sm-12 col-md-4 col-lg-4 text-center mt-100">
-      @if(!empty(Auth::user()->image))
-      <img src="{{ asset('storage/profile_images/'.$user->image) }}" >
-      @else 
-        <img src="{{ asset('vendor/eclipse/img/user.png') }}" >
+  <div class="col-sm-12 col-md-4 col-lg-4 text-center mt-100">
+    @if(!empty(Auth::user()->image))
+    <img src="{{ asset('storage/profile_images/'.$user->image) }}" style="width:80%;height:80%;">
+    @else 
+    <img src="{{ asset('vendor/eclipse/img/user.png') }}" >
+    @endif
+  </div>
+  <div class="col-sm-12 col-md-6">
+    <form action="/admin/profile/update" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="input">
+      <label for="">Name</label>
+      <input type="text" class="form-control rounded-0" name="name" placeholder="name" value="{{ $user->name }}">
+    </div>
+    <br>
+    <div class="input">
+      <label for="">Email</label>
+      <input type="text" class="form-control rounded-0" name="email" placeholder="email" value="{{ $user->email  }}">
+    </div>
+    <br>
+    <div class="input">
+      <label for="">Profile Picture</label>
+      <br>
+      @if(!empty($user->image))
+      <input type="file" class="" name="image" value="{{ asset('storage/profile_images/'.$user->image) }}">
+      @else
+      <input type="file" name="image" value="">
       @endif
     </div>
-    <div class="col-sm-12 col-md-6">
-        <form action="/admin/profile/update" method="post" enctype="multipart/form-data">
-          @csrf
-       <div class="input">
-         
-        <label for="">Name</label>
-       <input type="text" class="form-control rounded-0" name="name" placeholder="name" value="{{ $user->name }}">
-       </div>
-       <br>
-       <div class="input">
-          <label for="">Email</label>
-          <input type="text" class="form-control rounded-0" name="email" placeholder="email" value="{{ $user->email  }}">
-        </div>
-        <br>
-        <div class="input">
-          <label for="">Profile Picture</label>
-          <br>
-          @if(!empty($user->image))
-            <input type="file" class="" name="image" value="{{ asset('storage/profile_images/'.$user->image) }}">
-          @else
-            <input type="file" name="image" value="">
-          @endif
-        </div>
-        <br>
-        <div class="input">
-            <label for="">Old Password</label>
-            <input type="password" class="form-control rounded-0" name="oldPassword" placeholder="Old Password" >
-        </div>
-            <br>
-          <div class="input">
-            <label for="">New Password</label>
-            <input type="password" class="form-control rounded-0" name="password1" placeholder="New Password">
-          </div>
-          <br>
-          <div class="input">
-              <label for="">Verify New Password</label>
-              <input type="password" class="form-control rounded-0" name="password2" placeholder="Verify New Password">
-          </div>
-          <br><br>
-          <div class="input">
-            <button type="submit" class="btn btn-primary z-depth-2 rounded-0">Update Profile</button>
-          </div>
+    <br>
+    <div class="input">
+      <label for="">Old Password</label>
+      <input type="password" class="form-control rounded-0" name="oldPassword" placeholder="Old Password" >
     </div>
-
+    <br>
+    <div class="input">
+      <label for="">New Password</label>
+      <input type="password" class="form-control rounded-0" name="password1" placeholder="New Password">
+    </div>
+    <br>
+    <div class="input">
+      <label for="">Verify New Password</label>
+      <input type="password" class="form-control rounded-0" name="password2" placeholder="Verify New Password">
+    </div>
+    <br><br>
+    <div class="input">
+      <button type="submit" class="btn btn-primary z-depth-2 rounded-0">Update Profile</button>
+    </div>
   </div>
+</div>
 @endsection

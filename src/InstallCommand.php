@@ -49,8 +49,14 @@ class InstallCommand extends Command {
     public function createDefaultUser()
     {   
         $name = $this->ask('Enter your name...');
+        $this->info("\t> '".$name."'");
+
         $email = $this->ask('Enter you email address...');
+        $this->info("\t> '".$email."'");
+
         $password = $this->ask('Enter a passsword for your account...');
+        $this->info("\t> '".$password."'");
+
         $user = new User;
         $user->name = $name;
         $user->email = $email;
@@ -58,6 +64,7 @@ class InstallCommand extends Command {
         $user->password = Hash::make($password);
         $user->image = "";
         $user->save();
+        
         $this->info('Your accont has been created....');
         $this->info('Go to localhost/admin/login to get started!');
     }
