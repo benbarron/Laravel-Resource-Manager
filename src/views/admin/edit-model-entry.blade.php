@@ -64,34 +64,48 @@
       @csrf
       <input type="hidden" value="{{ $id }}" name="entry-id">
       <div class="">
-        <?php $i = 0 ?>
+        @php
+          $i = 0;
+        @endphp
         @foreach($fields as $field)
-        @if($field->Type == "text")
-        @elseif($field->Type == "boolean")
-        <select name="{{ $field->Field }}" id="" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
-          <option value="1">True</option>
-          <option value="0">False</option>
-        </select>
-        @else
-        @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
-        <div class="form-group">
-          <label for="">{{ $field->Field }}</label>
-          <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
-        </div>
-        @endif
-        @endif
-        <?php $i++ ?>
+          @if($field->Type == "text")
+          @elseif($field->Type == "tinyint(1)")
+            @if($content->{$field->Field} == 1)
+              <label for="">{{ $field->Field }}</label>
+              <select name="{{ $field->Field }}" id="" class="form-control rounded-0 mb-50" value="{{ old($field->Field, $content->{$field->Field}) }}">
+                <option value="1">True</option>
+                <option value="0">False</option>
+              </select>
+            @else
+            <label for="">{{ $field->Field }}</label>
+            <select name="{{ $field->Field }}" id="" class="form-control rounded-0 mb-50" value="{{ old($field->Field, $content->{$field->Field}) }}">
+              <option value="0">False</option>
+              <option value="1">True</option>
+            </select>
+            @endif
+          @else
+            @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
+            <div class="form-group">
+              <label for="">{{ $field->Field }}</label>
+              <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
+            </div>
+            @endif
+          @endif
+          @php
+            $i++;
+          @endphp
         @endforeach
+        <!---  ensures text fields always show up on the bottom --->
         @foreach($fields as $field)
-        @if($field->Type == "text")
-        <div class="">
-          <div class="input-field" >
-            <textarea name="{{ $field->Field }}" id="" cols="30" rows="30" class="validate" placeholder="{{ $field->Field }}">
-            {{ old($field->Field, $content->{$field->Field}) }}
-            </textarea>
+          @if($field->Type == "text")
+          <div class="">
+            <div class="input-field" >
+              <textarea name="{{ $field->Field }}" id="" cols="30" rows="30" class="validate" placeholder="{{ $field->Field }}">
+              {{ old($field->Field, $content->{$field->Field}) }}
+              </textarea>
+            </div>
           </div>
-        </div>
-        @endif
+          @endif
         @endforeach
       </div>
       <div class="">

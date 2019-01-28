@@ -65,22 +65,22 @@
       <div class="">
         <?php $i = 0 ?>
         @foreach($fields as $field)
-        @if($field->Type == "text")
-        @elseif($field->Type == "boolean")
-        <select name="{{ $field->Field }}" id="" class="form-control rounded-0" value={{ old($field->
-          Field) }}>
-          <option value="1">True</option>
-          <option value="0">False</option>
-        </select>
-        @else
-        @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
-        <div class="form-group">
+          @if($field->Type == "text")
+          @elseif($field->Type == "tinyint(1)")
           <label for="">{{ $field->Field }}</label>
-          <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field) }}">
-        </div>
-        @endif
-        @endif
-        <?php $i++ ?>
+          <select name="{{ $field->Field }}" id="" class="form-control rounded-0 mb-50" value={{ old($field->Field) }}>
+            <option value="1">True</option>
+            <option value="0">False</option>
+          </select>
+          @else
+          @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
+          <div class="form-group">
+            <label for="">{{ $field->Field }}</label>
+            <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field) }}">
+          </div>
+          @endif
+          @endif
+          <?php $i++ ?>
         @endforeach
         @foreach($fields as $field)
         @if($field->Type == "text")

@@ -33,7 +33,7 @@ class ModelController extends Controller
     {
       $this->validate($request, [
           'name' => 'required',
-          
+
       ]);
 
       $count = [];
@@ -49,7 +49,7 @@ class ModelController extends Controller
         exit();
       } else {
 
-       
+
 
         //calculate number of rows
         for($i = 1; $i < 15; $i++){
@@ -78,7 +78,7 @@ class ModelController extends Controller
         $model = new Models;
         $model->name = $modelName;
         $model->tableName = $tableName;
-       
+
 
         if($request->input('api_access') == "on"){
           $model->apiAccess = 1;
@@ -164,7 +164,7 @@ class ModelController extends Controller
         } else {
           $data[$field->Field] = $request->input($field->Field);
         }
-        if(empty($data[$field->Field]) && $field->Field != "id") {
+        if(empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)") {
           return back()->withInput(Input::all())->with('red', 'All fields are required');
         }
       }
@@ -196,22 +196,22 @@ class ModelController extends Controller
     {
       $fields = DB::select(DB::raw('SHOW FIELDS FROM '.$tableName));
 
-      $data = [];
-
-
+      $id = $request->input('entry-id');
 
       foreach ($fields as $field){
         if ($field->Field == "timeStamp"){
           $data[$field->Field] = time();
         } else if (strtolower($field->Field) == "author") {
-          $data[$field->Field] = Auth::user()->name;          
+          $data[$field->Field] = Auth::user()->name;
         } else {
-          $data[$field->Field] = $request->input('entry-id');
+          $data[$field->Field] = $request->input($field->Field);
         }
-        if(empty($data[$field->Field]) && $field->Field != "id") {
-         return back()->withInputs(Input::all())->with('red', 'There was an error updating entry');
+        if(empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)") {
+          return back()->withInput(Input::all())->with('red', 'All fields are required');
         }
       }
+
+      $data["id"] = $id;
 
       DB::table($tableName)->where('id', $id)->update( $data );
 
@@ -283,7 +283,7 @@ class ModelController extends Controller
         'tableName' => 'required',
         'columnName' => 'required',
       ]);
-      
+
       $this->modelName = $request->input('modelName');
       $this->tableName = $request->input('tableName');
       $this->columnName = $request->input('columnName');
