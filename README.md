@@ -28,14 +28,10 @@ DB_DATABASE=xxxxxx
 DB_USERNAME=xxxxxx
 DB_PASSWORD=xxxxxx
 ```
-Also In the .env file add a variable called stylesheet and set it to either light, or dark
-This is used to change which stylesheet is being used and allow for easy changing of themes.
 
-```sh
-stylesheet=light
-```
+Select Barron\Eclipse\EclipseServiceProvider from the drop down menu.
 
-Make sure you have your .env file setup before doing this next step. If not the installation script will throw an error. Once compser is done installing the package run the following two commands 
+ 
 
 ```sh
 $ php artisan vendor publish
@@ -47,7 +43,8 @@ $ php artisan vendor publish
 
 ```
 
-Select Barron\Eclipse\EclipseServiceProvider from the drop down menu.
+Make sure you have your .env file setup before doing this next step. If not the installation script will throw an error.
+
 
 Next run
 ```sh
