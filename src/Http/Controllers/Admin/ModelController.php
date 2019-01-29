@@ -357,20 +357,21 @@ class ModelController extends Controller
     public function globalSearchEntries($filter)
     {
       $tables = DB::table('models')->select('tableName', 'name')->get();
-     $entries = '';
+     
      $arr = [];
       $i = 0;
       foreach ($tables as $table) {
-        $entries = DB::table($table->tableName)->where('title', $filter)->get();
+        $entries = DB::table($table->tableName)->where('title', 'like' , "%$filter%")->get();
         if ( count ( $entries ) > 0 ) {
+          $return = $i;
           foreach ($entries as $entrie) {
             $entrie->tableName = $table->tableName;
             $entrie->modelName = $table->name;
           }
         }
-        array_push($arr, $i, $entries);
+        array_push($arr, $entries);
+        $i ++;
       }
-
-      return $arr[1];
+      return $arr[$return];
     }
 }
