@@ -37,7 +37,7 @@ var Dashboard = function() {
 
       $('.l-sidebar').hover(sidebarChangeWidth);
 
-      
+
 
       $(".js-menu li").on("click", function(e) {
         menuChangeActive(e.currentTarget);
@@ -54,11 +54,11 @@ Dashboard.init();
 $('document').ready(function(){
   var i = 1;
   $('#add-column-to-table').on('click', function(){
-  
+
     if (i < 1) { i = 1; }
     var j = i + 1;
 
-    document.getElementById('insert'+i).innerHTML = 
+    document.getElementById('insert'+i).innerHTML =
       "<tr id="+i+">" +
       "<th>"+j+"<input type='hidden' name='count-"+j+"' value="+j+"></th>"+
       "<td>"+
@@ -67,6 +67,7 @@ $('document').ready(function(){
       "<option value='text'>Text</option>"+
       "<option value='integer'>Integer</option>"+
       "<option value='float'>Float</option>"+
+      "<option value='boolean'>Boolean</option>"+
       "<option value='image'>Image</option>"+
       "</select>"+
       "</td>"+

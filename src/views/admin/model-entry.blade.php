@@ -60,7 +60,7 @@
 </div>
 <div class="row justify-content-start">
   <div class="col-sm-12">
-    <form action="/admin/models/store/entry/{{ $modelName }}/{{ $tableName }}" method="post">
+    <form action="/admin/models/store/entry/{{ $modelName }}/{{ $tableName }}" method="post" enctype="multipart/form-data">
       @csrf
       <div class="">
         <?php $i = 0 ?>
@@ -73,12 +73,16 @@
             <option value="0">False</option>
           </select>
           @else
-          @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
-          <div class="form-group">
-            <label for="">{{ $field->Field }}</label>
-            <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field) }}">
-          </div>
-          @endif
+            @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
+              @if($field->Default == "image")
+                <input type="file" class="custom-file-input" name="{{ $field->Field }}" id="customFile" value="{{ old($field->Field, $field->Field) }}">
+              @else
+                <div class="form-group">
+                  <label for="">{{ $field->Field }}</label>
+                  <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field) }}">
+                </div>
+              @endif
+            @endif
           @endif
           <?php $i++ ?>
         @endforeach

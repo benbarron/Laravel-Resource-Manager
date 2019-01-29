@@ -52,9 +52,6 @@ class ModelController extends Controller
         return redirect('/admin/models/new?error=taken')->withInput(Input::all());
         exit();
       } else {
-
-
-
         //calculate number of rows
         for($i = 1; $i < 15; $i++){
           $count[$i] = $request->input('count-'.$i);
@@ -71,6 +68,9 @@ class ModelController extends Controller
           $this->dataType[$i] = $request->input('data-type-'.$i);
           $this->name[$i] = $request->input('name-'.$i);
           $this->default[$i] = $request->input('default-'.$i);
+          if( empty($this->name[$i]) ) {
+            return back()->withInput(Input::all())->with('red', 'Check your inputs');
+          }
         }
 
 
@@ -96,8 +96,14 @@ class ModelController extends Controller
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->integer('timeStamp');
+            //$table->softDeletes();
             for($i = 0; $i < $this->numRows; $i++){
-              $table->{$this->dataType[$i]}($this->name[$i])->default($this->default[$i]);
+              if($this->dataType[$i] == "image") {
+                $table->string($this->name[$i])->default('image');
+              } else {
+                $table->{$this->dataType[$i]}($this->name[$i])->default($this->default[$i]);
+              }
+
             }
         });
       }
@@ -165,6 +171,12 @@ class ModelController extends Controller
           $data[$field->Field] = time();
         } else if (strtolower($field->Field) == "author") {
           $data[$field->Field] = Auth::user()->name;
+        } else if ($field->Default == "image") {
+          if ($request->hasFile($field->Field)) {
+            $fileName = time()."_".$request->file($field->Field)->getClientOriginalName();
+            $path = $request->file($field->Field)->storeAs('public/uploads', $fileName);
+            $data[$field->Field] = $fileName;
+          }
         } else {
           $data[$field->Field] = $request->input($field->Field);
         }
@@ -207,10 +219,16 @@ class ModelController extends Controller
           $data[$field->Field] = time();
         } else if (strtolower($field->Field) == "author") {
           $data[$field->Field] = Auth::user()->name;
+        } else if ($field->Default == "image") {
+          if ($request->hasFile($field->Field)) {
+            $fileName = time()."_".$request->file($field->Field)->getClientOriginalName();
+            $path = $request->file($field->Field)->storeAs('public/uploads', $fileName);
+            $data[$field->Field] = $fileName;
+          }
         } else {
           $data[$field->Field] = $request->input($field->Field);
         }
-        if(empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)") {
+        if(empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)" && $field->Default != "image") {
           return back()->withInput(Input::all())->with('red', 'All fields are required');
         }
       }
@@ -269,7 +287,11 @@ class ModelController extends Controller
 
       try {
         Schema::table($tableName, function(Blueprint $table){
-          $table->{$this->dataType}($this->name)->default($this->default);
+          if($this->dataType == "image") {
+            $table->string($this->name)->default('image');
+          } else {
+            $table->{$this->dataType}($this->name)->default($this->default);
+        }
         });
       } catch (\Illuminate\Database\QueryException $e) {
         return redirect('/admin/models/edit/'.$modelName.'/'.$tableName)->with('red', 'There was an error adding '.$this->name);
@@ -357,7 +379,7 @@ class ModelController extends Controller
     public function globalSearchEntries($filter)
     {
       $tables = DB::table('models')->select('tableName', 'name')->get();
-     
+
      $arr = [];
       $i = 0;
       foreach ($tables as $table) {
@@ -369,9 +391,16 @@ class ModelController extends Controller
             $entrie->modelName = $table->name;
           }
         }
-        array_push($arr, $entries);
+        if ( $i == 0 ) {
+          $arr = $entries;
+        } else {
+          //$arr  = (array) array_merge((array) $arr, (array) $entries);
+          $arr = $arr->union($entries);
+        }
+
+        //array_push($arr, $entries);
         $i ++;
       }
-      return $arr[$return];
+      return $arr;
     }
 }

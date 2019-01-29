@@ -64,7 +64,7 @@
     @csrf
     <div class="form-group">
       <label for="">Model name</label>
-      <input type="text" name="name" id="" placeholder="Model Name" class="form-control rounded-0">
+      <input type="text" name="name" id="" placeholder="Model Name" class="form-control rounded-0" value="{{ old('name') }}">
     </div>
     <br>
     @php
@@ -73,7 +73,7 @@
     }
     @endphp
     <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" name="api_access" id="customSwitch1">
+      <input type="checkbox" class="custom-control-input" name="api_access" id="customSwitch1" >
       <label class="custom-control-label" for="customSwitch1">Api Access</label>
     </div>
     <br><br>
@@ -112,6 +112,7 @@
               <option value="text">Text</option>
               <option value="float">Float</option>
               <option value="boolean">Boolean</option>
+              <option value="image">Image</option>
             </select>
           </td>
           <td><input type="text" name="name-0" class="form-control rounded-0"></td>

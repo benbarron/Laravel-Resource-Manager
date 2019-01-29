@@ -94,15 +94,18 @@
 		  				"<h5>Title: "+entries[i].title +"</h5>" + "<h5>Parent Table: "+entries[i].tableName+"</h5>" +
 		  				"</a>";
 	  			}
-	  			if (entries.length > 0) {
+	  			if ( entries.length > 0 ) {
 	  				var entriesOutput = "<div class='mb-50'><ul class='list-group rounded-0'><li class='list-group-item list-group-item-sedondary'><h2 style='font-weight:lighter;'>Entries</h2></li>"+items+"</ul></div>";
 	  				document.getElementById('search-results-entries').innerHTML = entriesOutput;
 	  			} else {
 	  				document.getElementById('search-results-entries').innerHTML = '';
 	  			}
 	  		}
-	  		if (this.status = 404) {
+	  		if ( this.status = 404) {
 
+	  		}
+	  		if ( this.status == 500 ) {
+	  			document.getElementById('search-results-entries').innerHTML = '';
 	  		}
 	  	}
 	  	xhr.send();

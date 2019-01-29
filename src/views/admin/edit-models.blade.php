@@ -94,7 +94,7 @@
           <td>
             @if($field->Field != "id" && $field->Field != "timeStamp")
             <form action="/admin/models/drop/column" method="post">
-              @csrf 
+              @csrf
               <input type="hidden" name="modelName" value="{{ $modelName }}">
               <input type="hidden" name="tableName" value="{{ $tableName }}">
               <input type="hidden" name="columnName" value="{{ $field->Field }}">
@@ -120,6 +120,7 @@
                 <option value="text">Text</option>
                 <option value="float">Float</option>
                 <option value="boolean">Boolean</option>
+                <option value="image">Image</option>
               </select>
             </td>
             <td>

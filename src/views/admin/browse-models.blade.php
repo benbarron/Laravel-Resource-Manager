@@ -96,6 +96,8 @@
             @if($field->Field == "timeStamp")
               <td>{{ date("m/d/Y", $item->{$field->Field}) }}</td>
             @elseif($field->Type == "text")
+            @elseif($field->Default == "image")
+              <td><img src="{{ asset('storage/uploads/'.$item->{$field->Field}) }}" style="width:50px;width:50px;"></td>
             @else
               @if($i == 2)
                 <td class="entry">{!! $item->{$field->Field} !!}</td>

@@ -60,7 +60,7 @@
 </div>
 <div class="row justify-content-start">
   <div class="col-sm-12">
-    <form action="/admin/models/update/entry/{{ $modelName }}/{{ $tableName }}/{{ $id }}" method="post">
+    <form action="/admin/models/update/entry/{{ $modelName }}/{{ $tableName }}/{{ $id }}" method="post" enctype="multipart/form-data">
       @csrf
       <input type="hidden" value="{{ $id }}" name="entry-id">
       <div class="">
@@ -83,10 +83,20 @@
             @endif
           @else
             @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
-            <div class="form-group">
-              <label for="">{{ $field->Field }}</label>
-              <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
-            </div>
+              @if($field->Default == "image")
+                <div class="mt-20 mb-20">
+                  <img src="{{ asset('storage/uploads/'.$content->{$field->Field}) }}"  style="height:50px;width:50px;" alt="">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="{{ $field->Field }}" id="validatedCustomFile">
+                    <label class="custom-file-label" for="validatedCustomFile">Choose file to update picture...</label>
+                  </div>
+                </div>
+              @else
+                <div class="form-group">
+                  <label for="">{{ $field->Field }}</label>
+                  <input type="text" name="{{ $field->Field }}" class="form-control rounded-0" value="{{ old($field->Field, $content->{$field->Field}) }}">
+                </div>
+              @endif
             @endif
           @endif
           <?php $i++ ?>
