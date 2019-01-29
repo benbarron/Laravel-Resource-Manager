@@ -13,11 +13,11 @@ class InstallCommand extends Command {
     protected $signature = 'eclipse:install';
     protected $description = 'Command description';
     protected $EclipseControllers = [
-        'Http/Controllers/AdminController.php' => '/AdminController.php',
-        'Http/Controllers/LoginController.php' => '/LoginController.php',
-        'Http/Controllers/MediaController.php' => '/MediaController.php',
-        'Http/Controllers/ModelController.php' => '/ModelController.php',
-        'Http/Controllers/UserController.php' => '/UserController.php',
+        'Http/Controllers/Admin/AdminController.php' => '/Admin/AdminController.php',
+        'Http/Controllers/Admin/LoginController.php' => '/Admin/LoginController.php',
+        'Http/Controllers/Admin/MediaController.php' => '/Admin/MediaController.php',
+        'Http/Controllers/Admin/ModelController.php' => '/Admin/ModelController.php',
+        'Http/Controllers/Admin/UserController.php' => '/Admin/UserController.php',
     ];
     public function __construct() {
         parent::__construct();
@@ -37,17 +37,17 @@ class InstallCommand extends Command {
     public function publishAssets()
     {
         $this->call('vendor:publish', ['--provider' => BarronServiceProvider::class]);
-        
+
         $this->info('Public assets successfully published...');
     }
-    
+
     public function createStorageLink()
     {
         Artisan::call('storage:link');
         $this->info("Storage link successfully generated...");
     }
     public function createDefaultUser()
-    {   
+    {
         $name = $this->ask('Enter your name...');
         $this->info("\t> '".$name."'");
 
@@ -64,7 +64,7 @@ class InstallCommand extends Command {
         $user->password = Hash::make($password);
         $user->image = "";
         $user->save();
-        
+
         $this->info('Your accont has been created....');
         $this->info('Go to localhost/admin/login to get started!');
     }
@@ -101,7 +101,7 @@ class InstallCommand extends Command {
             $table->string('parent');
         });
         $this->info('Images table successfully created...');
-        
+
         //create folders table
         Schema::create('folders', function (Blueprint $table) {
             $table->increments('id');
@@ -110,7 +110,7 @@ class InstallCommand extends Command {
             $table->string('unique_id');
             $table->string('name');
         });
-        
+
         $this->info('Folders table successfully created...');
     }
     public function makeModels()
@@ -119,17 +119,17 @@ class InstallCommand extends Command {
         $params = ['name' => 'User'];
         Artisan::call('make:model', $params);
         $this->info('User Model successfully created...');
-        
+
         //make users model
         $params = ['name' => 'Models'];
         Artisan::call('make:model', $params);
         $this->info('Models Model successfully created...');
-        
+
         //make users model
         $params = ['name' => 'Image'];
         Artisan::call('make:model', $params);
         $this->info('Image Model successfully created...');
-        
+
         //make users model
         $params = ['name' => 'Folder'];
         Artisan::call('make:model', $params);
