@@ -29,7 +29,7 @@ Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('login')
 Route::post('/admin/login', 'Admin\LoginController@login')->name('admin.authenticate');
 
 //admin routes
-Route::middleware(['auth', 'Admin\IsAdmin'])->prefix('/admin')->group(function(){
+Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
   Route::get('/logout/{id}', 'Admin\LoginController@logout')->name('logout');
 

@@ -13,11 +13,11 @@ class InstallCommand extends Command {
     protected $signature = 'eclipse:install';
     protected $description = 'Command description';
     protected $EclipseControllers = [
-        'Http/Controllers/Admin/AdminController.php' => '/Admin/AdminController.php',
-        'Http/Controllers/Admin/LoginController.php' => '/Admin/LoginController.php',
-        'Http/Controllers/Admin/MediaController.php' => '/Admin/MediaController.php',
-        'Http/Controllers/Admin/ModelController.php' => '/Admin/ModelController.php',
-        'Http/Controllers/Admin/UserController.php' => '/Admin/UserController.php',
+        'Http/Controllers/Admin/AdminController.php' => 'Admin/AdminController.php',
+        'Http/Controllers/Admin/LoginController.php' => 'Admin/LoginController.php',
+        'Http/Controllers/Admin/MediaController.php' => 'Admin/MediaController.php',
+        'Http/Controllers/Admin/ModelController.php' => 'Admin/ModelController.php',
+        'Http/Controllers/Admin/UserController.php' => 'Admin/UserController.php',
     ];
     public function __construct() {
         parent::__construct();
@@ -137,10 +137,11 @@ class InstallCommand extends Command {
     }
     public function publishControllers()
     {
+        mkdir('app/Http/Controllers/Admin');
         // publish controllers
         foreach ($this->EclipseControllers as $key => $value) {
             copy(__DIR__.'/'.$key,
-            base_path('/app/Http/Controllers/'.$value));
+            base_path('app/Http/Controllers/'.$value));
         }
        $this->info('Eclipse Controllers copied into App/Http/Controllers...');
     }
