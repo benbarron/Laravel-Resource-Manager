@@ -75,7 +75,7 @@
           @else
             @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
               @if($field->Default == "image")
-                <input type="file" class="custom-file-input" name="{{ $field->Field }}" id="customFile" value="{{ old($field->Field, $field->Field) }}">
+                <input type="file" class="mb-20 mt-10" name="{{ $field->Field }}" id="customFile" value="{{ old($field->Field, $field->Field) }}">
               @else
                 <div class="form-group">
                   <label for="">{{ $field->Field }}</label>
