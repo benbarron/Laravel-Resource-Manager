@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Storage;
 use App\Image;
@@ -31,7 +33,7 @@ class MediaController extends Controller
         'dir' => 'required',
         'prev_dir' => 'required',
     	]);
-      
+
       $dir = $request->input('dir');
       $prev_dir = $request->input('prev_dir');
 
@@ -44,7 +46,7 @@ class MediaController extends Controller
       $image->parent = $dir;
       $image->url = '/storage/media_uploads/'.$fileName;
       $image->save();
-      
+
       return redirect('/admin/images/'.$dir.'/'.$prev_dir);
     }
 
@@ -71,7 +73,7 @@ class MediaController extends Controller
           $folder->name = $request->input('name');
           $folder->parent = $request->input('dir');
           $folder->unique_id = time()."_".Auth::user()->name;
-          $folder->save();          
+          $folder->save();
         } else {
           return back();
         }

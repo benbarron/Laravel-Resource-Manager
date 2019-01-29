@@ -64,9 +64,7 @@
       @csrf
       <input type="hidden" value="{{ $id }}" name="entry-id">
       <div class="">
-        @php
-          $i = 0;
-        @endphp
+        <?php $i = 0 ?>
         @foreach($fields as $field)
           @if($field->Type == "text")
           @elseif($field->Type == "tinyint(1)")
@@ -91,11 +89,8 @@
             </div>
             @endif
           @endif
-          @php
-            $i++;
-          @endphp
+          <?php $i++ ?>
         @endforeach
-        <!---  ensures text fields always show up on the bottom --->
         @foreach($fields as $field)
           @if($field->Type == "text")
           <div class="">
@@ -146,28 +141,6 @@
         forecolor: {inline : 'span', classes : 'forecolor', styles : {color : '%value'}},
         hilitecolor: {inline : 'span', classes : 'hilitecolor', styles : {backgroundColor : '%value'}},
         custom_format: {block : 'h1', attributes : {title : 'Header'}, styles : {color : 'red'}}
-      },
-      images_upload_handler: function (blobInfo, success, failure) {
-          var xhr, formData;
-          xhr = new XMLHttpRequest();
-          xhr.withCredentials = false;
-          xhr.open('POST', 'postAcceptor.php');
-          xhr.onload = function() {
-            var json;
-            if (xhr.status != 200) {
-              failure('HTTP Error: ' + xhr.status);
-              return;
-            }
-            json = JSON.parse(xhr.responseText);
-            if (!json || typeof json.location != 'string') {
-              failure('Invalid JSON: ' + xhr.responseText);
-              return;
-            }
-            success(json.location);
-          };
-          formData = new FormData();
-          formData.append('file', blobInfo.blob(), fileName(blobInfo));
-          xhr.send(formData);
       },
       mobile: {
           theme: 'mobile',

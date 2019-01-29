@@ -60,28 +60,46 @@
 </div>
 <div class="row">
   <div class="col-md-3">
-    <a href="/admin/new/user" class="btn btn-primary mb-30 z-depth-1 rounded-0">New User</a>         
-    <ul class="nav nav-tabs" >
-      <li class="nav-item">
-        <a class="nav-link  rounded-0" href="/admin/users/all?view=all">All Users</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link rounded-0" href="/admin/users/admins?view=admins">Admins</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link rounded-0 " href="/admin/users/non-admins?view=non-admins">Non Admins</a>
-      </li>
-    </ul>
+    <a href="/admin/new/user" class="btn btn-primary mb-30 z-depth-1 rounded-0">New User</a>
+
   </div>
   <div class="col-md-9">
     <ul class="nav justify-content-end">
       <li class="nav-item">
         <form class="form-inline">
           <div class="form-group mx-sm-3 mb-2">
-            <input type="text" class="form-control rounded-0" id="" placeholder="Search Users...">
+            <input type="text" class="form-control rounded-0" id="search-input" placeholder="Search Users...">
           </div>
-          <button type="submit" class="btn btn-primary mb-2 rounded-0 z-depth-1">Enter</button>
+
         </form>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ul class="nav nav-tabs" >
+      @php
+      if(isset($_GET['view'])) {
+        if($_GET['view'] == "all") {
+          $view = "all";
+        } else if ($_GET['view'] == "admins") {
+          $view = "admins";
+        } else if ($_GET['view'] == "non-admins") {
+          $view = "non-admins";
+        }
+      }  else {
+        $view = "";
+      }
+      @endphp
+      <li class="nav-item">
+        <a class="nav-link @php if($view == 'all') echo 'active'; @endphp  rounded-0" href="/admin/users/all?view=all">All Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link @php if($view == 'admins') echo 'active'; @endphp rounded-0" href="/admin/users/admins?view=admins">Admins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link @php if($view == 'non-admins') echo 'active'; @endphp rounded-0 " href="/admin/users/non-admins?view=non-admins">Non Admins</a>
       </li>
     </ul>
   </div>
@@ -98,21 +116,33 @@
         <th scope="col">User Type</th>
       </tr>
     </thead>
-    <tbody>
-      @php $i = 1 @endphp
-      @foreach($users as $user)
-      <tr>
-        <th scope="row">{{ $i }}</th>
-        <td>{{ $user->name }}</td>
-        <td>{{ $user->email }}</td>
-        @if($user->IsAdmin == 1)
-        <td>Administrator</td>
-        @else 
-        <td>Normal User</td>
-        @endif
-      </tr>
-      @php $i++; @endphp
-      @endforeach
+    <tbody id="users-table">
+      @if(count($users) > 0)
+        @php $i = 1 @endphp
+        @php
+          $i = 0;
+        @endphp
+        @foreach($users as $user)
+        <tr id="user-{{ $i }}" class="user-count">
+          <th scope="row">{{ $i }}</th>
+          <td class="users-name">{{ $user->name }}</td>
+          <td>{{ $user->email }}</td>
+          @if($user->IsAdmin == 1)
+          <td>Administrator</td>
+          @else
+          <td>Normal User</td>
+          @endif
+        </tr>
+        @php $i++; @endphp
+        @endforeach
+      @else
+        <tr>
+          <td>No Users Found</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      @endif
     </tbody>
   </table>
 </div>
@@ -120,4 +150,23 @@
 <div class="row">
   {{ $users->links() }}
 </div>
+@endsection
+
+@section('js')
+<script>
+  let filterInput = document.getElementById('search-input');
+  filterInput.addEventListener('keyup', filterUsers);
+  function filterUsers() {
+    let filterValue = document.getElementById('search-input').value.toUpperCase();
+    let users = $('.users-name');
+    for(let i = 0; i < users.length; i++) {
+      if(users[i].innerHTML.toUpperCase().indexOf(filterValue) > -1) {
+          users[i].style.display = '';
+          document.getElementById('user-'+i).style.display = '';
+      } else {
+        document.getElementById('user-'+i).style.display = 'none';
+      }
+    }
+  }
+</script>
 @endsection

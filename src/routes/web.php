@@ -6,72 +6,72 @@
 |--------------------------------------------------------------------------
 |
 | -login routes
-|    
+|
 | -admin routes
 |    - logout
 |    - models
 |    - profile
 |    - users
 |    - model entries
-|    - model api access 
+|    - model api access
 |    - media / images
 |    - documentation
-|    
+|
 | -api access routes
-|    
+|
 | -register your own routes
 |
 |
 */
 
 //login routes
-Route::get('/admin/login', 'LoginController@showLoginForm')->name('login');
-Route::post('/admin/login', 'LoginController@login')->name('admin.authenticate');
+Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('login');
+Route::post('/admin/login', 'Admin\LoginController@login')->name('admin.authenticate');
 
 //admin routes
-Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
+Route::middleware(['auth', 'Admin\IsAdmin'])->prefix('/admin')->group(function(){
 
-  Route::get('/logout/{id}', 'LoginController@logout')->name('logout');
+  Route::get('/logout/{id}', 'Admin\LoginController@logout')->name('logout');
 
-  Route::get('/home', 'AdminController@home')->name('home');
+  Route::get('/home', 'Admin\AdminController@home')->name('home');
 
-  Route::get('/models', 'AdminController@models')->name('admin.models');
+  Route::get('/models', 'Admin\AdminController@models')->name('admin.models');
 
-  Route::get('/models/new', 'ModelController@new')->name('model.new');
-  Route::post('/create/model', 'ModelController@create')->name('model.create');
+  Route::get('/models/new', 'Admin\ModelController@new')->name('model.new');
+  Route::post('/create/model', 'Admin\ModelController@create')->name('model.create');
 
-  Route::get('/profile', 'AdminController@profile')->name('profile');
+  Route::get('/profile', 'Admin\AdminController@profile')->name('profile');
 
-  Route::post('/profile/update', 'UserController@updateUser')->name('profile.update');
+  Route::post('/profile/update', 'Admin\UserController@updateUser')->name('profile.update');
 
-  Route::get('/users/{criteria}', 'AdminController@users')->name('admin.users');
-  Route::get('/new/user', 'AdminController@showNewUserForm')->name('newUser');
-  Route::post('/create/user', 'UserController@createUser')->name('create.user');
+  Route::get('/users/{criteria}', 'Admin\AdminController@users')->name('admin.users');
+  Route::get('/new/user', 'Admin\AdminController@showNewUserForm')->name('newUser');
+  Route::post('/create/user', 'Admin\UserController@createUser')->name('create.user');
 
-  Route::get('/models/browse/{modelName}/{tableName}', 'ModelController@browseModel')->name('model.browse');
-  Route::get('/models/edit/{modelName}/{tableName}', 'ModelController@editModel')->name('model.browse');
-  Route::post('/models/update', 'ModelController@updateModel')->name('model.update');
-  Route::post('/models/drop/column', 'ModelController@dropColumn')->name('model.drop');
-  Route::post('/models/delete', 'ModelController@deleteModel')->name('model.delete');
+  Route::get('/models/browse/{modelName}/{tableName}', 'Admin\ModelController@browseModel')->name('model.browse');
+  Route::get('/models/edit/{modelName}/{tableName}', 'Admin\ModelController@editModel')->name('model.browse');
+  Route::post('/models/update', 'Admin\ModelController@updateModel')->name('model.update');
+  Route::post('/models/drop/column', 'Admin\ModelController@dropColumn')->name('model.drop');
+  Route::post('/models/delete', 'Admin\ModelController@deleteModel')->name('model.delete');
 
-  Route::get('/models/new-entry/{modelName}/{tableName}', 'ModelController@modelEntry')->name('model.entry');
-  Route::post('/models/store/entry/{modelName}/{tableName}', 'ModelController@storeModelEntry')->name('model.store');
+  Route::get('/models/new-entry/{modelName}/{tableName}', 'Admin\ModelController@modelEntry')->name('model.entry');
+  Route::post('/models/store/entry/{modelName}/{tableName}', 'Admin\ModelController@storeModelEntry')->name('model.store');
 
-  Route::get('/models/edit/entry/{modelName}/{tableName}/{id}', 'ModelController@editModelEntry')->name('model.edit-entry');
+  Route::get('/models/edit/entry/{modelName}/{tableName}/{id}', 'Admin\ModelController@editModelEntry')->name('model.edit-entry');
 
-  Route::post('/models/update/entry/{modelName}/{tableName}/{id}', 'ModelController@updateModelEntry')->name('model.update');
+  Route::post('/models/update/entry/{modelName}/{tableName}/{id}', 'Admin\ModelController@updateModelEntry')->name('model.update');
 
-  Route::post('/models/delete/entry/{modelName}/{tableName}', 'ModelController@deleteModelEntry')->name('model.delete');
+  Route::post('/models/delete/entry/{modelName}/{tableName}', 'Admin\ModelController@deleteModelEntry')->name('model.delete');
 
-  Route::post('/models/enable/api-access/{modleName}/{tableName}', 'ModelController@enableApiAccess')->name('model.api.enable');
-  Route::post('/models/disable/api-access/{modleName}/{tableName}', 'ModelController@disableApiAccess')->name('model.api.disable');
+  Route::post('/models/enable/api-access/{modleName}/{tableName}', 'Admin\ModelController@enableApiAccess')->name('model.api.enable');
+  Route::post('/models/disable/api-access/{modleName}/{tableName}', 'Admin\ModelController@disableApiAccess')->name('model.api.disable');
 
-  Route::get('/images/{dir}/{prev_dir}', 'MediaController@index')->name('admin.media');
-  Route::post('/images/store', 'MediaController@storeImage')->name('images.store');
-  Route::post('/images/delete/{fileName}', 'MediaController@deleteImage')->name('images.delete');
+  Route::get('/images/{dir}/{prev_dir}', 'Admin\MediaController@index')->name('admin.media');
+  Route::post('/images/store', 'Admin\MediaController@storeImage')->name('images.store');
+  Route::post('/images/delete/{fileName}', 'Admin\MediaController@deleteImage')->name('images.delete');
 
-  Route::post('/media/add/folder', 'MediaController@addFolder')->name('admin.add.folder');
-  Route::post('/media/delete/folder/{id}', 'MediaController@deleteFolder');
+  Route::post('/media/add/folder', 'Admin\MediaController@addFolder')->name('admin.add.folder');
+  Route::post('/media/delete/folder/{id}', 'Admin\MediaController@deleteFolder');
 
 
   Route::get('/documentation', function(){
@@ -90,15 +90,17 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
 
 
-Route::get('/models/api/{tableName}/{apiKay}', 'ModelController@apiAccess')->name('model.api');
-
+Route::get('/models/api/{tableName}/{apiKay}', 'Admin\ModelController@apiAccess')->name('model.api');
+Route::get('/global-search/api/users/{filter}', 'Admin\ModelController@globalSearchUsers')->name('global.search.users');
+Route::get('/global-search/api/models/{filter}', 'Admin\ModelController@globalSearchModels')->name('global.search.models');
+Route::get('/global-search/api/entries/{filter}', 'Admin\ModelController@globalSearchEntries')->name('global.search.entries');
 
 /*
 |--------------------------------------------------------------------------
 | Register your routes here
 |--------------------------------------------------------------------------
 |
-| 
+|
 |
 |
 */

@@ -62,7 +62,7 @@
   <div class="col-sm-12 col-md-4 col-lg-4 text-center mt-100">
     @if(!empty(Auth::user()->image))
     <img src="{{ asset('storage/profile_images/'.$user->image) }}" style="width:80%;height:80%;">
-    @else 
+    @else
     <img src="{{ asset('vendor/eclipse/img/user.png') }}" >
     @endif
   </div>
@@ -83,9 +83,15 @@
       <label for="">Profile Picture</label>
       <br>
       @if(!empty($user->image))
-      <input type="file" class="" name="image" value="{{ asset('storage/profile_images/'.$user->image) }}">
+      <div class="custom-file">
+          <input type="file" class="custom-file-input" name="image" id="customFile" value="{{ asset('storage/profile_images/'.$user->image) }}">
+          <label class="custom-file-label" for="customFile">{{ $user->image }}</label>
+      </div>
       @else
-      <input type="file" name="image" value="">
+      <div class="custom-file">
+          <input type="file" class="custom-file-input" name="image" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
       @endif
     </div>
     <br>

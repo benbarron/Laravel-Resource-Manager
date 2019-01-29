@@ -18,6 +18,9 @@
     </div>
     <main class="l-main">
       <div class="content-wrapper content-wrapper--with-bg">
+        <div id="search-results-models"></div>
+        <div id="search-results-entries"></div>
+        <div id="search-results-users"></div>
         <h1 class="page-title">@yield('page-header')</h1>
         <div class="page-content">
           <div class="row">
@@ -33,7 +36,7 @@
     <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src="{{ asset('/vendor/eclipse/js/main.js') }}"></script>
-    
+
     @yield('js')
   </body>
 </html>

@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
@@ -51,7 +53,7 @@ class UserController extends Controller
         }
       }
 
-      return redirect('/admin/users/all')->with('green', 'User Created');
+      return redirect('/admin/users/all?view=all')->with('green', 'User Created');
     }
 
     public function updateUser(Request $request)
@@ -82,8 +84,6 @@ class UserController extends Controller
       if($email != $oldEmail){
         $user->email = $email;
       }
-
-
 
       if($request->hasFile('image')) {
         if(!empty($user->image)) {

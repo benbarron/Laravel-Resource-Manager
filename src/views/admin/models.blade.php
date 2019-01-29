@@ -67,9 +67,8 @@
       <li class="nav-item">
         <form class="form-inline">
           <div class="form-group mx-sm-3 mb-2">
-            <input type="text" class="form-control rounded-0" id="" placeholder="Search Models...">
+            <input type="text" class="form-control rounded-0" id="search-input" placeholder="Filter Models...">
           </div>
-          <button type="submit" class="btn btn-primary mb-2 rounded-0 z-depth-1">Enter</button>
         </form>
       </li>
     </ul>
@@ -99,24 +98,30 @@
         <td>--------</td>
       </tr>
       @if(count($models) > 0)
-      @foreach($models as $model)
-      <tr>
-        <td>{{ $model->name }} </td>
-        <td>{{ $model->tableName }}</td>
-        <td>{{ $model->created_at }}</td>
-        <td><a href="/admin/models/edit/{{ $model->name }}/{{ $model->tableName }}" class="btn btn-secondary btn-sm rounded-0 z-depth-1">Edit</a></td>
-        <td><a href="/admin/models/new-entry/{{ $model->name }}/{{ $model->tableName }}" class="btn btn-success btn-sm rounded-0 z-depth-1">New Entry</a></td>
-        <td><a href="/admin/models/browse/{{ $model->name }}/{{ $model->tableName }}" class="btn btn-primary btn-sm rounded-0 z-depth-1">View Entries</a></td>
-        <td>
-          <form action="/admin/models/delete" method="post">
-            @csrf
-            <input type="hidden" name="tableName" value="{{ $model->tableName }}">
-            <input type="hidden" name="modelName" value="{{ $model->name }}">
-            <button type="submit" class="btn btn-danger btn-sm rounded-0 z-depth-1">Delete Model</button>
-          </form>
-        </td>
-      </tr>
-      @endforeach
+        @php
+          $i = 0;
+        @endphp
+        @foreach($models as $model)
+        <tr id="model-{{ $i }}">
+          <td class="model-name">{{ $model->name }} </td>
+          <td>{{ $model->tableName }}</td>
+          <td>{{ $model->created_at }}</td>
+          <td><a href="/admin/models/edit/{{ $model->name }}/{{ $model->tableName }}" class="btn btn-secondary btn-sm rounded-0 z-depth-1">Edit</a></td>
+          <td><a href="/admin/models/new-entry/{{ $model->name }}/{{ $model->tableName }}" class="btn btn-success btn-sm rounded-0 z-depth-1">New Entry</a></td>
+          <td><a href="/admin/models/browse/{{ $model->name }}/{{ $model->tableName }}" class="btn btn-primary btn-sm rounded-0 z-depth-1">View Entries</a></td>
+          <td>
+            <form action="/admin/models/delete" method="post">
+              @csrf
+              <input type="hidden" name="tableName" value="{{ $model->tableName }}">
+              <input type="hidden" name="modelName" value="{{ $model->name }}">
+              <button type="submit" class="btn btn-danger btn-sm rounded-0 z-depth-1">Delete Model</button>
+            </form>
+          </td>
+        </tr>
+        @php
+          $i++;
+        @endphp
+        @endforeach
       @endif
     </tbody>
   </table>
@@ -126,4 +131,23 @@
   {{ $models->links() }}
 </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+  let filterInput = document.getElementById('search-input');
+  filterInput.addEventListener('keyup', filterUsers);
+  function filterUsers() {
+    let filterValue = document.getElementById('search-input').value.toUpperCase();
+    let models = $('.model-name');
+    for(let i = 0; i < models.length; i++) {
+      if(models[i].innerHTML.toUpperCase().indexOf(filterValue) > -1) {
+          document.getElementById('model-'+i).style.display = '';
+      } else {
+        document.getElementById('model-'+i).style.display = 'none';
+      }
+    }
+    console.log(filterValue);
+  }
+</script>
 @endsection
