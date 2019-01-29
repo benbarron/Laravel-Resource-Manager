@@ -75,7 +75,7 @@
                 <option value="0">False</option>
               </select>
             @else
-            <label for="">{{ $field->Field }}</label>
+            <label for="">{{ $field->Field }} </label>
             <select name="{{ $field->Field }}" id="" class="form-control rounded-0 mb-50" value="{{ old($field->Field, $content->{$field->Field}) }}">
               <option value="0">False</option>
               <option value="1">True</option>
@@ -85,11 +85,11 @@
             @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
               @if($field->Default == "image")
                 <div class="mt-20 mb-20">
-                  <img src="{{ asset('storage/uploads/'.$content->{$field->Field}) }}"  style="height:50px;width:50px;" alt="">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="{{ $field->Field }}" id="validatedCustomFile">
-                    <label class="custom-file-label" for="validatedCustomFile">Choose file to update picture...</label>
-                  </div>
+                  <label for="">{{ $field->Field }} (Choose new file to update or leave blank)</label>
+                  <br>
+                  <img src="{{ asset('storage/uploads/'.$content->{$field->Field}) }}"  style="height:100px;width:100px;" alt="">
+                  <br>
+                  <input type="file" class="mt-10" name="{{ $field->Field }}" value="{{  $content->{$field->Field} }}">  
                 </div>
               @else
                 <div class="form-group">

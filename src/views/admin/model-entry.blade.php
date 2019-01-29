@@ -75,7 +75,10 @@
           @else
             @if($field->Field != "id" && $field->Field != "timeStamp" && strtolower($field->Field) != "author")
               @if($field->Default == "image")
+              <label for="">{{ $field->Field }}</label>
+              <br>
                 <input type="file" class="mb-20 mt-10" name="{{ $field->Field }}" id="customFile" value="{{ old($field->Field, $field->Field) }}">
+                <br>
               @else
                 <div class="form-group">
                   <label for="">{{ $field->Field }}</label>
@@ -134,28 +137,6 @@
         forecolor: {inline : 'span', classes : 'forecolor', styles : {color : '%value'}},
         hilitecolor: {inline : 'span', classes : 'hilitecolor', styles : {backgroundColor : '%value'}},
         custom_format: {block : 'h1', attributes : {title : 'Header'}, styles : {color : 'red'}}
-      },
-      images_upload_handler: function (blobInfo, success, failure) {
-          var xhr, formData;
-          xhr = new XMLHttpRequest();
-          xhr.withCredentials = false;
-          xhr.open('POST', 'postAcceptor.php');
-          xhr.onload = function() {
-            var json;
-            if (xhr.status != 200) {
-              failure('HTTP Error: ' + xhr.status);
-              return;
-            }
-            json = JSON.parse(xhr.responseText);
-            if (!json || typeof json.location != 'string') {
-              failure('Invalid JSON: ' + xhr.responseText);
-              return;
-            }
-            success(json.location);
-          };
-          formData = new FormData();
-          formData.append('file', blobInfo.blob(), fileName(blobInfo));
-          xhr.send(formData);
       },
       mobile: {
           theme: 'mobile',

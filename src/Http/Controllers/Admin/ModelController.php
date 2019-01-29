@@ -338,12 +338,6 @@ class ModelController extends Controller
           $data = DB::table($tableName)->get();
           return $data;
         }
-
-        if($apiKey != $key){
-          abort(404);
-        } else {
-          abort(404);
-        }
       }
     }
 
