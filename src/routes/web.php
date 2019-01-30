@@ -66,17 +66,19 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
   Route::post('/models/enable/api-access/{modleName}/{tableName}', 'Admin\ModelController@enableApiAccess')->name('model.api.enable');
   Route::post('/models/disable/api-access/{modleName}/{tableName}', 'Admin\ModelController@disableApiAccess')->name('model.api.disable');
 
-  Route::get('/images/{dir}/{prev_dir}', 'Admin\MediaController@index')->name('admin.media');
+  Route::get('/media', 'Admin\MediaController@index')->name('admin.media');
   Route::post('/images/store', 'Admin\MediaController@storeImage')->name('images.store');
   Route::post('/images/delete/{fileName}', 'Admin\MediaController@deleteImage')->name('images.delete');
 
-  Route::post('/media/add/folder', 'Admin\MediaController@addFolder')->name('admin.add.folder');
-  Route::post('/media/delete/folder/{id}', 'Admin\MediaController@deleteFolder');
+
 
 
   Route::get('/documentation', function(){
 
   });
+
+  //---------------------------------------------
+  Route::get('/gen-users', 'UserController@genUsers')->name('gen.users');
 });
 /*
 |--------------------------------------------------------------------------
@@ -109,3 +111,4 @@ Route::get('/global-search/api/entries/{filter}', 'Admin\ModelController@globalS
 Route::get('/', function() {
   return redirect('/admin/login');
 });
+

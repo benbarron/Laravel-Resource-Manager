@@ -43,6 +43,14 @@
           </div>
         </li>
       </a>
+      <a href="/admin/media">
+        <li class="c-menu__item" data-toggle="tooltip" title="Settings">
+          <div class="c-menu__item__inner">
+            <i class="fas fa-images"></i>
+            <div class="c-menu-item__title"><span>Media</span></div>
+          </div>
+        </li>
+      </a>
       <li class="c-menu__item" data-toggle="tooltip" title="Settings">
         <div class="c-menu__item__inner">
           <i class="fa fa-cogs"></i>

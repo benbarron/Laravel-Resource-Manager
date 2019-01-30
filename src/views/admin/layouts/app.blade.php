@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/eclipse/css/app.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    @yield('css')
 
     <title>@yield('page-title')</title>
   </head>
