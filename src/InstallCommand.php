@@ -19,6 +19,31 @@ class InstallCommand extends Command {
         'Http/Controllers/Admin/ModelController.php' => 'Admin/ModelController.php',
         'Http/Controllers/Admin/UserController.php' => 'Admin/UserController.php',
     ];
+
+    protected $assets = [
+        'css/app.css' => 'css/app.css',
+        'js/main.js' => 'js/main.js',
+        'img/user.png' => 'img/user.png'
+    ];
+
+    protected $views = [
+        'browse-models.blade.php' => 'browse-models.blade.php',
+        'edit-model-entry.blade.php' => 'edit-model-entry.blade.php',
+        'edit-models.blade.php' => 'edit-models.blade.php',
+        'home.blade.php' => 'home.blade.php',
+        'login.blade.php' => 'login.blade.php',
+        'media.blade.php' => 'media.blade.php',
+        'model-entry.blade.php' => 'model-entry.blade.php',
+        'models.blade.php' => 'models.blade.php',
+        'new-model.blade.php' => 'new-model.blade.php',
+        'new-user.blade.php' => 'new-user.blade.php',
+        'profile.blade.php' => 'profile.blade.php',
+        'users.blade.php' => 'users.blade.php', 
+        'partials/alerts.blade.php' => 'partials/alerts.blade.php', 
+        'partials/header.blade.php' => 'partials/header.blade.php',
+        'layouts/app.blade.php' => 'layouts/app.blade.php'
+    ];
+
     public function __construct() {
         parent::__construct();
     }
@@ -33,11 +58,31 @@ class InstallCommand extends Command {
         $this->publishKernel();
         $this->publishRoutes();
         $this->createDefaultUser();
+        $this->publishViews();
+    }
+    public function publishViews ()
+    {
+        mkdir('/resources/views/admin');
+        mkdir('/resources/views/admin/partials');
+        mkdir('/resources/views/admin/layouts');
+
+        foreach ( $this->$views as $key => $value ) {
+            copy(__DIR__.'/views/admin/'.$key,
+            base_path('resources/views/admin/'.$value));
+        }
+
+        $this->info('Views successfully published...');
     }
     public function publishAssets()
     {
-        $this->call('vendor:publish', ['--provider' => BarronServiceProvider::class]);
-
+        mkdir('public/vendor/eclipse/img');
+        mkdir('public/vendor/eclipse/js');
+        mkdir('public/vendor/eclipse/css');
+        
+        foreach ($this->$assetss as $key => $value) {
+            copy(__DIR__.'/'.$key,
+            base_path('public/vendor/eclipse/'.$value));
+        }
         $this->info('Public assets successfully published...');
     }
 
