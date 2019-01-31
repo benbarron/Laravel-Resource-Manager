@@ -60,32 +60,6 @@ class InstallCommand extends Command {
         $this->createDefaultUser();
         $this->publishViews();
     }
-    public function publishViews ()
-    {
-        mkdir('/resources/views/admin');
-        mkdir('/resources/views/admin/partials');
-        mkdir('/resources/views/admin/layouts');
-
-        foreach ( $this->$views as $key => $value ) {
-            copy(__DIR__.'/views/admin/'.$key,
-            base_path('resources/views/admin/'.$value));
-        }
-
-        $this->info('Views successfully published...');
-    }
-    public function publishAssets()
-    {
-        mkdir('public/vendor/eclipse/img');
-        mkdir('public/vendor/eclipse/js');
-        mkdir('public/vendor/eclipse/css');
-        
-        foreach ($this->$assetss as $key => $value) {
-            copy(__DIR__.'/'.$key,
-            base_path('public/vendor/eclipse/'.$value));
-        }
-        $this->info('Public assets successfully published...');
-    }
-
     public function createStorageLink()
     {
         Artisan::call('storage:link');
@@ -146,17 +120,6 @@ class InstallCommand extends Command {
             $table->string('parent');
         });
         $this->info('Images table successfully created...');
-
-        //create folders table
-        Schema::create('folders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->string('parent');
-            $table->string('unique_id');
-            $table->string('name');
-        });
-
-        $this->info('Folders table successfully created...');
     }
     public function makeModels()
     {
@@ -174,11 +137,6 @@ class InstallCommand extends Command {
         $params = ['name' => 'Image'];
         Artisan::call('make:model', $params);
         $this->info('Image Model successfully created...');
-
-        //make users model
-        $params = ['name' => 'Folder'];
-        Artisan::call('make:model', $params);
-        $this->info('Folder Model successfully created...');
     }
     public function publishControllers()
     {
