@@ -93,9 +93,13 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
 
 Route::get('/models/api/{tableName}/{apiKay}', 'Admin\ModelController@apiAccess')->name('model.api');
-Route::get('/global-search/api/users/{filter}', 'Admin\ModelController@globalSearchUsers')->name('global.search.users');
-Route::get('/global-search/api/models/{filter}', 'Admin\ModelController@globalSearchModels')->name('global.search.models');
-Route::get('/global-search/api/entries/{filter}', 'Admin\ModelController@globalSearchEntries')->name('global.search.entries');
+
+Route::middleware(['auth', 'IsAdmin'])->group(function () {
+  Route::get('/global-search/api/users/{filter}', 'Admin\ModelController@globalSearchUsers')->name('global.search.users');
+  Route::get('/global-search/api/models/{filter}', 'Admin\ModelController@globalSearchModels')->name('global.search.models');
+  Route::get('/global-search/api/entries/{filter}', 'Admin\ModelController@globalSearchEntries')->name('global.search.entries'); 
+});
+
 
 /*
 |--------------------------------------------------------------------------

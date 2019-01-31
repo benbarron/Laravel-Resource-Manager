@@ -50,7 +50,6 @@ class InstallCommand extends Command {
     public function handle()
     {
         $this->runMigrations();
-        $this->publishAssets();
         $this->makeModels();
         $this->createStorageLink();
         $this->publishControllers();
@@ -58,7 +57,6 @@ class InstallCommand extends Command {
         $this->publishKernel();
         $this->publishRoutes();
         $this->createDefaultUser();
-        $this->publishViews();
     }
     public function createStorageLink()
     {

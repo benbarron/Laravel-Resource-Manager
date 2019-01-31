@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -37,7 +36,6 @@ class ModelController extends Controller
     {
       $this->validate($request, [
           'name' => 'required',
-
       ]);
 
       $count = [];
@@ -48,23 +46,23 @@ class ModelController extends Controller
       $models = Models::where('name', $modelName)->get();
 
       //make sure we are not duplicating a model that already exists
-      if(count($models) > 0){
+      if ( count($models) > 0 ) {
         return redirect('/admin/models/new?error=taken')->withInput(Input::all());
         exit();
       } else {
         //calculate number of rows
-        for($i = 1; $i < 15; $i++){
+        for ( $i = 1; $i < 15; $i++ ) {
           $count[$i] = $request->input('count-'.$i);
         }
 
-        for($i = 15; $i > 0; $i--) {
-          if(empty($count[$i])) {
+        for ( $i = 15; $i > 0; $i-- ) {
+          if ( empty($count[$i]) ) {
             $this->numRows = $i - 1;
           }
         }
 
         //set values for fields
-        for($i = 0; $i < $this->numRows; $i++){
+        for ( $i = 0; $i < $this->numRows; $i++ ) {
           $this->dataType[$i] = $request->input('data-type-'.$i);
           $this->name[$i] = $request->input('name-'.$i);
           $this->default[$i] = $request->input('default-'.$i);
@@ -84,7 +82,7 @@ class ModelController extends Controller
         $model->tableName = $tableName;
 
 
-        if($request->input('api_access') == "on"){
+        if ( $request->input('api_access') == "on" ) {
           $model->apiAccess = 1;
         } else {
           $model->apiAccess = 0;
@@ -96,14 +94,12 @@ class ModelController extends Controller
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->integer('timeStamp');
-            //$table->softDeletes();
-            for($i = 0; $i < $this->numRows; $i++){
-              if($this->dataType[$i] == "image") {
+            for ( $i = 0; $i < $this->numRows; $i++ ) {
+              if ( $this->dataType[$i] == "image" ) {
                 $table->string($this->name[$i])->default('image');
               } else {
                 $table->{$this->dataType[$i]}($this->name[$i])->default($this->default[$i]);
               }
-
             }
         });
       }
@@ -166,13 +162,13 @@ class ModelController extends Controller
       $fields = DB::select(DB::raw('SHOW FIELDS FROM '.$tableName));
 
 
-      foreach ($fields as $field){
-        if ($field->Field == "timeStamp"){
+      foreach ( $fields as $field ) {
+        if ( $field->Field == "timeStamp" ){
           $data[$field->Field] = time();
-        } else if (strtolower($field->Field) == "author") {
+        } else if ( strtolower($field->Field) == "author" ) {
           $data[$field->Field] = Auth::user()->name;
         } else if ($field->Default == "image") {
-          if ($request->hasFile($field->Field)) {
+          if ( $request->hasFile($field->Field) ) {
             $fileName = time()."_".$request->file($field->Field)->getClientOriginalName();
             $path = $request->file($field->Field)->storeAs('public/uploads', $fileName);
             $data[$field->Field] = $fileName;
@@ -180,7 +176,7 @@ class ModelController extends Controller
         } else {
           $data[$field->Field] = $request->input($field->Field);
         }
-        if(empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)") {
+        if ( empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)" ) {
           return back()->withInput(Input::all())->with('red', 'All fields are required');
         }
       }
@@ -189,7 +185,6 @@ class ModelController extends Controller
 
       return redirect('/admin/models/browse/'.$modelName.'/'.$tableName)
               ->with('green', 'Your entry in the '.$modelName.' model was successful');
-
     }
 
     public function editModelEntry($modelName, $tableName, $id)
@@ -214,13 +209,13 @@ class ModelController extends Controller
 
       $id = $request->input('entry-id');
 
-      foreach ($fields as $field){
-        if ($field->Field == "timeStamp"){
+      foreach ( $fields as $field ) {
+        if ( $field->Field == "timeStamp" ) {
           $data[$field->Field] = time();
-        } else if (strtolower($field->Field) == "author") {
+        } else if ( strtolower($field->Field) == "author" ) {
           $data[$field->Field] = Auth::user()->name;
-        } else if ($field->Default == "image") {
-          if ($request->hasFile($field->Field)) {
+        } else if ( $field->Default == "image" ) {
+          if ( $request->hasFile($field->Field) ) {
             $fileName = time()."_".$request->file($field->Field)->getClientOriginalName();
             $path = $request->file($field->Field)->storeAs('public/uploads', $fileName);
             $data[$field->Field] = $fileName;
@@ -228,7 +223,7 @@ class ModelController extends Controller
         } else {
           $data[$field->Field] = $request->input($field->Field);
         }
-        if(empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)" && $field->Default != "image") {
+        if ( empty($data[$field->Field]) && $field->Field != "id" && $field->Type != "tinyint(1)" && $field->Default != "image") {
           return back()->withInput(Input::all())->with('red', 'All fields are required');
         }
       }
@@ -323,18 +318,18 @@ class ModelController extends Controller
 
     public function apiAccess($tableName, $apiKey)
     {
-      if($tableName == "users"){
+      if ( $tableName == "users" ) {
          abort(404);
       } else {
         $key = "ij1CPywJlRlKgQcqXkDIUsoyg0jejouE";
 
         $model = DB::table('models')->where('tableName', $tableName)->get();
 
-        if(count($model) == 0){
+        if ( count($model) == 0 ) {
            abort(404);
         }
 
-        if($apiKey == $key && $model[0]->apiAccess == 1) {
+        if ( $apiKey == $key && $model[0]->apiAccess == 1 ) {
           $data = DB::table($tableName)->get();
           return $data;
         }
@@ -374,7 +369,7 @@ class ModelController extends Controller
     {
       $tables = DB::table('models')->select('tableName', 'name')->get();
 
-     $arr = [];
+      $arr = [];
       $i = 0;
       foreach ($tables as $table) {
         $entries = DB::table($table->tableName)->where('title', 'like' , "%$filter%")->get();
@@ -388,11 +383,8 @@ class ModelController extends Controller
         if ( $i == 0 ) {
           $arr = $entries;
         } else {
-          //$arr  = (array) array_merge((array) $arr, (array) $entries);
           $arr = $arr->union($entries);
         }
-
-        //array_push($arr, $entries);
         $i ++;
       }
       return $arr;
