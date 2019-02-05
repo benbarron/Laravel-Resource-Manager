@@ -43,7 +43,7 @@ class LoginController extends Controller
         if (Hash::check($password, $hashedPassword)) {
           Auth::login($user[0]);
           return redirect('/admin/home');
-
+          
         } else {
           return redirect('/admin/login?error=credintials')->withInput(Input::all());
         }

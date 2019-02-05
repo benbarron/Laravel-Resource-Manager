@@ -18,6 +18,9 @@ class InstallCommand extends Command {
         'Http/Controllers/Admin/MediaController.php' => 'Admin/MediaController.php',
         'Http/Controllers/Admin/ModelController.php' => 'Admin/ModelController.php',
         'Http/Controllers/Admin/UserController.php' => 'Admin/UserController.php',
+  //------------
+        'Http/Controllers/Admin/SearchController.php' => 'Admin/SearchController.php',
+        'Http/Controllers/Admin/ModelEntryController.php' => 'Admin/ModelEntryController.php'
     ];
 
     protected $assets = [

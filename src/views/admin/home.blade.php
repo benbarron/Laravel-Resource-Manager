@@ -67,6 +67,28 @@
   @include('admin.partials.alerts')
 </div>
 <div class="row justify-content-start">
-
+  <h3>
+    User Management
+  </h3>
+  <br>
+  <p>Laravel Eclipse comes with a users table and custom middleware called 'IsAdmin', this middleware checks the if the user is an admin or normal
+  user. By default the users table comes with the option for a user to be an admin or a normal user, this is controlled by a boolean variable. When you create a new user you can specify the user type as shown below, only admins will be able to login to the backend admin area.
+  <span class="alert alert-secondary">
+    $user->IsAdmin = 1; 
+    <br>
+    $user->IsAdmin = 0;
+  </span>
+  </p>
+  <br><br>
+  <h3>Model Creation</h3>
+  <br>
+  <p>
+    
+  </p>
+  <br><br>
+  <h3>Image Uploads</h3>
+  <br>
+  <p></p>
+  
 </div>
 @endsection
