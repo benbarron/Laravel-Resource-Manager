@@ -63,6 +63,7 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
 
   //api controller
+  // api access key ij1CPywJlRlKgQcqXkDIUsoyg0jejouE
   Route::post('/models/enable/api-access/{modleName}/{tableName}', 'Admin\ApiController@enableApiAccess')->name('model.api.enable');
   Route::post('/models/disable/api-access/{modleName}/{tableName}', 'Admin\ApiController@disableApiAccess')->name('model.api.disable');
   Route::get('/models/api/{tableName}/{apiKay}', 'Admin\ApiController@apiAccess')->name('model.api');
@@ -76,10 +77,10 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
 /*
 |--------------------------------------------------------------------------
-| Api Key and access route
+| global search routes
 |--------------------------------------------------------------------------
 |
-| ij1CPywJlRlKgQcqXkDIUsoyg0jejouE
+| 
 |
 |
 */

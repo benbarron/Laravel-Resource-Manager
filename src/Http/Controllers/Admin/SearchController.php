@@ -18,19 +18,7 @@ use Auth;
 
 class SearchController extends Controller 
 {
-	    public function enableApiAccess($modelName, $tableName)
-    {
-      $model = DB::table('models')->where('name', $modelName)->update([ 'apiAccess' => 1 ]);
 
-      return back()->with('green', 'Api Access has been added to this model');
-    }
-
-    public function disableApiAccess($modelName, $tableName)
-    {
-      $model = DB::table('models')->where('name', $modelName)->update([ 'apiAccess' => 0 ]);
-
-      return back()->with('green', 'Api Access has been removed from this model');
-    }
 
     public function globalSearchUsers($filter)
     {
@@ -72,23 +60,5 @@ class SearchController extends Controller
       return $arr;
     }
 
-    public function apiAccess($tableName, $apiKey)
-    {
-      if ( $tableName == "users" ) {
-         abort(404);
-      } else {
-        $key = "ij1CPywJlRlKgQcqXkDIUsoyg0jejouE";
 
-        $model = DB::table('models')->where('tableName', $tableName)->get();
-
-        if ( count($model) == 0 ) {
-           abort(404);
-        }
-
-        if ( $apiKey == $key && $model[0]->apiAccess == 1 ) {
-          $data = DB::table($tableName)->get();
-          return $data;
-        }
-      }
-    }
 }
