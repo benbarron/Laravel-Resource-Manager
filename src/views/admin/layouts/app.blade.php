@@ -12,7 +12,7 @@
 
     <title>@yield('page-title')</title>
   </head>
-  <body class="sidebar-is-reduced">
+  <body class="sidebar-is-expanded">
     @include('admin.partials.header')
     <div class="l-sidebar">
       @yield('sidebar')

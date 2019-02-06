@@ -51,7 +51,6 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
   Route::post('/models/update', 'Admin\ModelController@updateModel')->name('model.update');
   Route::post('/models/drop/column', 'Admin\ModelController@dropColumn')->name('model.drop');
   Route::post('/models/delete', 'Admin\ModelController@deleteModel')->name('model.delete');
-
   Route::get('/models/new', 'Admin\ModelController@new')->name('model.new');
   Route::post('/create/model', 'Admin\ModelController@create')->name('model.create');
 
@@ -63,20 +62,18 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
   Route::post('/models/delete/entry/{modelName}/{tableName}', 'Admin\ModelEntryController@deleteModelEntry')->name('model.delete');
 
 
-  //search controller
-  Route::post('/models/enable/api-access/{modleName}/{tableName}', 'Admin\SearchController@enableApiAccess')->name('model.api.enable');
-  Route::post('/models/disable/api-access/{modleName}/{tableName}', 'Admin\SearchController@disableApiAccess')->name('model.api.disable');
+  //api controller
+  Route::post('/models/enable/api-access/{modleName}/{tableName}', 'Admin\ApiController@enableApiAccess')->name('model.api.enable');
+  Route::post('/models/disable/api-access/{modleName}/{tableName}', 'Admin\ApiController@disableApiAccess')->name('model.api.disable');
+  Route::get('/models/api/{tableName}/{apiKay}', 'Admin\ApiController@apiAccess')->name('model.api');
 
   //media controller
   Route::get('/media', 'Admin\MediaController@index')->name('admin.media');
   Route::post('/images/store', 'Admin\MediaController@storeImage')->name('images.store');
   Route::post('/images/delete/{fileName}', 'Admin\MediaController@deleteImage')->name('images.delete');
-
-
-
-  //---------------------------------------------
-  Route::get('/gen-users', 'UserController@genUsers')->name('gen.users');
 });
+
+
 /*
 |--------------------------------------------------------------------------
 | Api Key and access route
@@ -89,7 +86,7 @@ Route::middleware(['auth', 'IsAdmin'])->prefix('/admin')->group(function(){
 
 
 
-Route::get('/models/api/{tableName}/{apiKay}', 'Admin\SearchController@apiAccess')->name('model.api');
+
 
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
   Route::get('/global-search/api/users/{filter}', 'Admin\SearchController@globalSearchUsers')->name('global.search.users');

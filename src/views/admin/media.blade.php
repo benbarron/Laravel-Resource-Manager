@@ -96,7 +96,7 @@
       </div>  
     @endforeach
   @else 
-  <alert class="alert-secondary">
+  <alert class="alert alert-secondary">
     No Images Found
   </alert>
   @endif

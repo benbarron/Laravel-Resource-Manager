@@ -33,15 +33,15 @@ var Dashboard = function() {
 
   return {
     init: function init() {
-      $(".js-hamburger").on("click", sidebarChangeWidth);
+      //$(".js-hamburger").on("click", sidebarChangeWidth);
 
-      $('.l-sidebar').hover(sidebarChangeWidth);
+      //$('.l-sidebar').hover(sidebarChangeWidth);
 
 
 
-      $(".js-menu li").on("click", function(e) {
-        menuChangeActive(e.currentTarget);
-      });
+      //$(".js-menu li").on("click", function(e) {
+      //  menuChangeActive(e.currentTarget);
+      //});
 
       $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
     }

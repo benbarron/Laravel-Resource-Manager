@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 
+
 class InstallCommand extends Command {
     protected $signature = 'eclipse:install';
     protected $description = 'Command description';
@@ -20,7 +21,8 @@ class InstallCommand extends Command {
         'Http/Controllers/Admin/UserController.php' => 'Admin/UserController.php',
   //------------
         'Http/Controllers/Admin/SearchController.php' => 'Admin/SearchController.php',
-        'Http/Controllers/Admin/ModelEntryController.php' => 'Admin/ModelEntryController.php'
+        'Http/Controllers/Admin/ModelEntryController.php' => 'Admin/ModelEntryController.php',
+        'Http/Controllers/Admin/ApiController.php' => 'Admin/ApiController.php'
     ];
 
     protected $assets = [
