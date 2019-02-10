@@ -73,12 +73,12 @@
   <br>
   <p>Laravel Eclipse comes with a users table and custom middleware called 'IsAdmin', this middleware checks the if the user is an admin or normal
   user. By default the users table comes with the option for a user to be an admin or a normal user, this is controlled by a boolean variable. When you create a new user you can specify the user type as shown below, only admins will be able to login to the backend admin area.
-  <span class="alert alert-secondary">
+  </p>
+  <div class="alert alert-secondary">
     $user->IsAdmin = 1; 
     <br>
     $user->IsAdmin = 0;
-  </span>
-  </p>
+  </div>
   <br><br>
   <h3>Model Creation</h3>
   <br>

@@ -16,7 +16,7 @@ use App\Models;
 use Storage;
 use Auth;
 
-class ModelEntryController extends Controller 
+class ApiController extends Controller 
 {
 		public function __construct()
 		{
