@@ -11,15 +11,15 @@ use App\User;
 
 
 class InstallCommand extends Command {
-    protected $signature = 'eclipse:install';
+    protected $signature = 'resourcemanager:install';
     protected $description = 'Command description';
+
     protected $EclipseControllers = [
         'Http/Controllers/Admin/AdminController.php' => 'Admin/AdminController.php',
         'Http/Controllers/Admin/LoginController.php' => 'Admin/LoginController.php',
         'Http/Controllers/Admin/MediaController.php' => 'Admin/MediaController.php',
         'Http/Controllers/Admin/ModelController.php' => 'Admin/ModelController.php',
         'Http/Controllers/Admin/UserController.php' => 'Admin/UserController.php',
-  //------------
         'Http/Controllers/Admin/SearchController.php' => 'Admin/SearchController.php',
         'Http/Controllers/Admin/ModelEntryController.php' => 'Admin/ModelEntryController.php',
         'Http/Controllers/Admin/ApiController.php' => 'Admin/ApiController.php'
@@ -43,8 +43,8 @@ class InstallCommand extends Command {
         'new-model.blade.php' => 'new-model.blade.php',
         'new-user.blade.php' => 'new-user.blade.php',
         'profile.blade.php' => 'profile.blade.php',
-        'users.blade.php' => 'users.blade.php', 
-        'partials/alerts.blade.php' => 'partials/alerts.blade.php', 
+        'users.blade.php' => 'users.blade.php',
+        'partials/alerts.blade.php' => 'partials/alerts.blade.php',
         'partials/header.blade.php' => 'partials/header.blade.php',
         'layouts/app.blade.php' => 'layouts/app.blade.php'
     ];

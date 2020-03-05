@@ -9,7 +9,7 @@ use Barron\Eclipse\InstallCommand;
 class EclipseServiceProvider extends ServiceProvider
 {
   protected $commands = [
-    'Barron\Eclipse\InstallCommand'
+    'Barron\LaravelResourceManager\InstallCommand'
   ];
 
 

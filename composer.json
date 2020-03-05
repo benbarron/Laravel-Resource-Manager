@@ -1,5 +1,5 @@
 {
-    "name": "bbarron/laravel-eclipse",
+    "name": "bbarron/laravel-resource-manager",
     "description": "Laravel Admin Package for easier database interactions",
     "type": "library",
     "license": "MIT",
@@ -13,14 +13,14 @@
     "require": {},
     "autoload": {
       "psr-4": {
-        "Barron\\Eclipse\\": "src/"
+        "Barron\\LaravelResourceManager\\": "src/"
       }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Barron\\Eclipse\\EclipseServiceProvider"
+                "Barron\\LaravelResourceManager\\LaravelResourceManagerServiceProvider"
             ]
         }
-    }   
+    }
 }
