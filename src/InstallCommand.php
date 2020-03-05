@@ -1,6 +1,6 @@
 <?php
 
-namespace Barron\Eclipse;
+namespace Barron\LaravelResourceManager;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

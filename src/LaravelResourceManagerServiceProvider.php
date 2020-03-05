@@ -1,12 +1,11 @@
 <?php
 
-namespace Barron\Eclipse;
-
+namespace Barron\LaravelResourceManager;
 
 use Illuminate\Support\ServiceProvider;
-use Barron\Eclipse\InstallCommand;
+use Barron\LaravelResourceManager\InstallCommand;
 
-class EclipseServiceProvider extends ServiceProvider
+class LaravelResourceManagerServiceProvider extends ServiceProvider
 {
   protected $commands = [
     'Barron\LaravelResourceManager\InstallCommand'
