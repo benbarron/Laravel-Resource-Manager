@@ -45,7 +45,7 @@ Make sure you have your .env file setup before doing this next step. If not the 
 
 Next run
 ```sh
-$ php artisan eclipse:install
+$ php artisan resource-manager:install
 ```
 
 After this is done installing a username and password will be printed out onto your terminal window. Go to localhost/admin/login to get started
