@@ -15,7 +15,7 @@ $ composer create-project laravel/laravel LaravelResourceManagerDemo
 
 $ cd LaravelResourceManagerDemo
 
-$ composer require bbarron/Laravel-Resource-Manager
+$ composer require bbarron/laravel-resource-manager
 ```
 While this is install go to you .env file and fill in you database information
 
