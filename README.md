@@ -31,7 +31,7 @@ DB_PASSWORD=xxxxxx
 Select Barron\LaravelResourceManager\LaravelResourceManagerServiceProvider from the drop down menu.
 
 ```sh
-$ php artisan vendor publish
+$ php artisan vendor:publish
 
  Which provider or tags files would you like to publish?:
   [0 ] Publish files from all providers and tags listed below
