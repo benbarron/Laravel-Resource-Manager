@@ -11,7 +11,7 @@ use App\User;
 
 
 class InstallCommand extends Command {
-    protected $signature = 'resourcemanager:install';
+    protected $signature = 'resource-manager:install';
     protected $description = 'Command description';
 
     protected $EclipseControllers = [
